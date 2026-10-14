@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Factor · Market Intelligence</title>
+<meta name="description" content="Factoring, invoice discounting and UAE healthcare-receivables intelligence, updated daily.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+:root{
+ --font-anthropic-sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+ --font-anthropic-serif:"Instrument Serif",Georgia,serif;
+ --color-fg:#F4F2ED;--color-fg-muted:#9B978F;--color-bg:#0A0A0A;--color-panel:#131313;--color-border-line:#262626;
+ --color-ok:#86B996;--color-warn:#D8A65C;--color-bad:#E2725F;
+ --cds-font-size-caption:.78rem;--cds-font-size-body:.95rem;--cds-font-size-heading:1.06rem;--cds-font-size-title:2.2rem;--cds-font-weight-medium:600;
+ --cds-pad-xs:.25rem;--cds-pad-sm:.5rem;--cds-pad-md:.9rem;--cds-pad-lg:1.25rem;--cds-pad-xl:2rem;
+ --cds-gap-xs:.25rem;--cds-gap-sm:.5rem;--cds-gap-md:.9rem;--cds-gap-lg:1.4rem;--cds-gap-xl:2.2rem;
+ --cds-radius:10px;--cds-chart-grid:#222;--cds-chart-axis:#3a3a3a;--cds-surface-popover:#1b1b1b;--cds-border:#333;
+ --cds-shadow-popover:0 10px 28px rgba(0,0,0,.55);--cds-text-secondary:#9B978F;--cds-dur-slow:.4s;
+ color-scheme:dark;
+}
+html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(--font-anthropic-sans);-webkit-font-smoothing:antialiased}
+#dash-root{padding:clamp(16px,4vw,48px)}
+.dash-skeleton{color:transparent!important;background:#1d1d1d;border-radius:4px}
+.fx-feed.dash-skeleton,.fx-chart.dash-skeleton{background:transparent}
+a{color:inherit}
+</style>
+<script>
+window.dash=(function(){
+  var FILES={news:1,indicators:1,rates:1,regulation:1,competitors:1,events:1,insurers:1};
+  var store={},calcs={},subs=[],ready=false;
+  Object.keys(FILES).forEach(function(id){store[id]={status:'loading',data:[]};});
+  function calcData(id){
+    var c=calcs[id],ins=c.inputs.map(function(i){return data(i);});
+    var bad=ins.find(function(d){return d.status!=='ok';});
+    if(bad) return {status:bad.status,data:[]};
+    try{return {status:'ok',data:c.fn.apply(null,ins.map(function(d){return d.data;}))};}catch(e){return {status:'error',data:[],message:String(e)};}
+  }
+  function data(id){ if(calcs[id]) return calcData(id); return store[id]||{status:'missing',data:[]}; }
+  function run(){subs.forEach(function(fn){try{fn();}catch(e){console.error(e);}});}
+  var bust='?v='+Date.now();
+  Promise.all(Object.keys(FILES).map(function(id){
+    return fetch('data/'+id+'.json'+bust).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+      .then(function(j){store[id]={status:'ok',data:Array.isArray(j)?j:(j.rows||j.data||[])};})
+      .catch(function(e){store[id]={status:'error',data:[],message:String(e)};})
+      .then(run);
+  }));
+  fetch('data/meta.json'+bust).then(function(r){return r.json();}).then(function(m){
+    var el=document.getElementById('fx-updated');
+    if(el&&m.updated){el.textContent=new Date(m.updated).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Dubai'})+' (Dubai)';}
+  }).catch(function(){});
+  var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(run,150);});
+  return {
+    colors:['#C9B37E','#8FA3B8','#B88F8F','#8FB89A','#A08FB8','#B8A88F','#8FB8B5','#B88FAA'],
+    data:data,
+    onData:function(fn){subs.push(fn);try{fn();}catch(e){console.error(e);}},
+    calc:function(id,o){calcs[id]=o;},
+    loader:function(){},
+    setLink:function(name){try{history.replaceState(null,'','#'+name);}catch(e){}},
+    params:function(){return {};},setParams:function(){},resetParams:function(){},refresh:function(){}
+  };
+})();
+</script>
+</head><body><div id="dash-root">
+<style>
+.fx{font-family:var(--font-anthropic-sans);max-width:1240px;margin-inline:auto;color:var(--color-fg)}
+.fx *{box-sizing:border-box}
+.fx-head{padding-block:var(--cds-pad-md) var(--cds-pad-lg);border-bottom:1px solid var(--color-border-line);margin-bottom:var(--cds-gap-lg)}
+.fx-mark{font-size:var(--cds-font-size-caption);letter-spacing:.34em;text-transform:uppercase;font-weight:700}
+.fx-mark .fx-dim{color:var(--color-fg-muted);font-weight:500}
+.fx-title{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);margin:var(--cds-gap-sm) 0 var(--cds-gap-xs);line-height:1.15}
+.fx-take{margin:0;color:var(--color-fg-muted);font-size:var(--cds-font-size-body);max-width:60rem}
+.fx-take b{color:var(--color-fg);font-weight:600}
+.fx-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:var(--cds-gap-md);margin-bottom:var(--cds-gap-lg)}
+.fx-tile{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-md) var(--cds-pad-lg);display:flex;flex-direction:column;gap:var(--cds-gap-xs);min-height:8.5rem}
+.fx-tl{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.12em}
+.fx-tv{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);line-height:1.1;font-variant-numeric:tabular-nums}
+.fx-tv .fx-u{font-size:var(--cds-font-size-body);color:var(--color-fg-muted);margin-left:.2em;font-family:var(--font-anthropic-sans)}
+.fx-td{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);font-variant-numeric:tabular-nums}
+.fx-td .up-bad,.fx-td .down-bad{color:var(--color-warn);font-weight:600}
+.fx-td .up-good{color:var(--color-ok);font-weight:600}
+.fx-asof{margin-top:auto;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);opacity:.8}
+.fx-tabs{display:flex;gap:var(--cds-gap-xs);border-bottom:1px solid var(--color-border-line);margin-bottom:var(--cds-gap-lg);overflow-x:auto}
+.fx-tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:var(--cds-pad-sm) var(--cds-pad-md);font:inherit;font-size:var(--cds-font-size-body);color:var(--color-fg-muted);cursor:pointer;white-space:nowrap}
+.fx-tab[aria-selected="true"]{color:var(--color-fg);border-bottom-color:var(--fx-accent,var(--color-fg));font-weight:600}
+.fx-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:var(--cds-gap-lg);align-items:start}
+@media (max-width:900px){.fx-grid{grid-template-columns:minmax(0,1fr)}}
+.fx-card-box{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg)}
+.fx-h2{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:0 0 var(--cds-gap-xs)}
+.fx-note{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin:0 0 var(--cds-gap-md)}
+.fx-side{display:flex;flex-direction:column;gap:var(--cds-gap-lg)}
+.fx-filters{display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm);align-items:center;margin-bottom:var(--cds-gap-md)}
+.fx-chip{appearance:none;font:inherit;font-size:var(--cds-font-size-caption);padding:.3rem .8rem;border-radius:999px;border:1px solid var(--color-border-line);background:transparent;color:var(--color-fg-muted);cursor:pointer}
+.fx-chip[aria-pressed="true"]{background:var(--color-fg);color:var(--color-bg);border-color:var(--color-fg)}
+.fx-input,.fx-select{font:inherit;font-size:var(--cds-font-size-caption);padding:.35rem .6rem;border-radius:var(--cds-radius);border:1px solid var(--color-border-line);background:var(--color-bg);color:var(--color-fg)}
+.fx-input{flex:1 1 12rem;min-width:0}
+.fx-toggle{display:flex;align-items:center;gap:.35rem;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);cursor:pointer}
+.fx-feed{display:flex;flex-direction:column;gap:var(--cds-gap-md);min-height:12rem}
+.fx-item{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-md) var(--cds-pad-lg)}
+.fx-meta{display:flex;flex-wrap:wrap;gap:.35rem .8rem;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin-bottom:.35rem;align-items:center}
+.fx-tag{text-transform:uppercase;letter-spacing:.1em}
+.fx-rel{display:inline-flex;align-items:center;gap:.35rem}
+.fx-rel::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:var(--color-border-line)}
+.fx-item[data-rel="High"] .fx-rel{color:var(--color-fg);font-weight:600}
+.fx-item[data-rel="High"] .fx-rel::before{background:var(--fx-accent,var(--color-fg))}
+.fx-item[data-rel="Medium"] .fx-rel::before{background:var(--color-fg-muted)}
+.fx-hl{display:block;font-size:var(--cds-font-size-heading);font-weight:600;line-height:1.3;color:var(--color-fg);text-decoration:none;margin-bottom:.35rem}
+.fx-hl:hover{text-decoration:underline}
+.fx-sum{margin:0 0 .5rem;font-size:var(--cds-font-size-body);line-height:1.5}
+.fx-why{margin:0;font-size:var(--cds-font-size-body);line-height:1.5;padding-left:var(--cds-pad-md);border-left:2px solid var(--fx-accent,var(--color-fg));color:var(--color-fg-muted)}
+.fx-why b{color:var(--color-fg);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:var(--cds-font-size-caption);margin-right:.4rem}
+.fx-src{margin-top:.5rem;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.fx-empty{color:var(--color-fg-muted);font-size:var(--cds-font-size-body);padding:var(--cds-pad-lg) 0}
+.fx-bars{display:flex;flex-direction:column;gap:.5rem;min-height:10rem}
+.fx-bar{display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) 2rem;gap:.6rem;align-items:center;font-size:var(--cds-font-size-caption);cursor:pointer;background:none;border:0;padding:0;font-family:inherit;color:var(--color-fg);text-align:left}
+.fx-bar .tr{height:.6rem;border-radius:999px;background:var(--cds-chart-grid);overflow:hidden}
+.fx-bar .fl{height:100%;border-radius:999px;background:var(--fx-accent,var(--color-fg))}
+.fx-bar[aria-pressed="true"] .lb{font-weight:700}
+.fx-bar .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--color-fg-muted)}
+.fx-tbl-wrap{overflow:auto;max-height:36rem}
+.fx-tbl{width:100%;border-collapse:collapse;font-size:var(--cds-font-size-caption)}
+.fx-tbl th{text-align:left;font-weight:600;color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.08em;padding:.5rem .6rem;border-bottom:1px solid var(--color-border-line);position:sticky;top:0;background:var(--color-panel)}
+.fx-tbl td{padding:.6rem;border-bottom:1px solid var(--color-border-line);vertical-align:top;line-height:1.45}
+.fx-tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.fx-tbl a{color:var(--color-fg)}
+.fx-tbl td:first-child{font-weight:600}
+.fx-chart{position:relative;min-height:280px}
+.fx-tip{position:absolute;pointer-events:none;background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);padding:var(--cds-pad-xs) var(--cds-pad-sm);font-size:var(--cds-font-size-caption);white-space:nowrap;opacity:0}
+.fx-tip .k{color:var(--cds-text-secondary)}
+.fx-fail{display:flex;align-items:center;justify-content:center;gap:.5rem;min-height:inherit;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.fx-fail::before{content:"";width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
+.fx-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:var(--cds-gap-lg)}
+.fx-w{display:inline-flex;align-items:center;gap:.35rem;font-weight:600;white-space:nowrap}
+.fx-w::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--color-border-line)}
+.fx-w.w-high{color:var(--color-bad)}.fx-w.w-high::before{background:var(--color-bad)}
+.fx-w.w-medium{color:var(--color-warn)}.fx-w.w-medium::before{background:var(--color-warn)}
+.fx-w.w-low{color:var(--color-ok)}.fx-w.w-low::before{background:var(--color-ok)}
+.fx-w.w-tpa{color:var(--color-fg-muted);font-weight:500}
+.fx-sub{display:block;font-weight:400;color:var(--color-fg-muted);margin-top:.15rem}
+.fx-foot{margin-top:var(--cds-gap-xl);padding-top:var(--cds-pad-md);border-top:1px solid var(--color-border-line);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+[data-dash-source-state=empty]{color:transparent}
+[data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+</style>
+
+<div class="fx">
+  <header class="fx-head" id="top">
+    <div class="fx-mark">Factor <span class="fx-dim">&nbsp;·&nbsp; Market intelligence</span></div>
+    <h1 class="fx-title">Receivables finance briefing</h1>
+    <p class="fx-take">Factoring, invoice discounting and healthcare-receivables news for the UAE, the GCC and global markets, each with a note on what it means for Factor. <b><span data-source="news_summary" data-field="total" data-row="0" class="dash-skeleton">—</span> stories</b> in the feed, <b><span data-source="news_summary" data-field="high" data-row="0" class="dash-skeleton">—</span> rated high relevance</b>; the UAE base rate stands at <b><span data-source="indicators" data-field="value" data-where="id=base_rate" class="dash-skeleton">—</span>%</b> after September's hike.</p>
+  </header>
+
+  <section class="fx-kpis" id="kpis" aria-label="Key indicators">
+    <div class="fx-tile" data-id="base_rate" id="kpi-base-rate">
+      <div class="fx-tl">CBUAE base rate</div>
+      <div class="fx-tv"><span data-source="indicators" data-field="value" data-where="id=base_rate" class="dash-skeleton">—</span><span class="fx-u">%</span></div>
+      <div class="fx-td"><span class="fx-dv" data-source="deltas" data-field="change" data-where="id=base_rate">—</span> pts vs previous decision</div>
+      <div class="fx-asof">As of <span data-source="indicators" data-field="asof" data-where="id=base_rate">—</span></div>
+    </div>
+    <div class="fx-tile" data-id="eibor_3m" id="kpi-eibor">
+      <div class="fx-tl">3-month EIBOR</div>
+      <div class="fx-tv"><span data-source="indicators" data-field="value" data-where="id=eibor_3m" class="dash-skeleton">—</span><span class="fx-u">%</span></div>
+      <div class="fx-td">Benchmark for Factor's funding cost</div>
+      <div class="fx-asof">As of <span data-source="indicators" data-field="asof" data-where="id=eibor_3m">—</span></div>
+    </div>
+    <div class="fx-tile" data-id="dha_sla" id="kpi-dha">
+      <div class="fx-tl">Dubai insurer pay deadline</div>
+      <div class="fx-tv"><span data-source="indicators" data-field="value" data-where="id=dha_sla" class="dash-skeleton">—</span><span class="fx-u">days</span></div>
+      <div class="fx-td">From claim submission; late fee <span data-source="indicators" data-field="value" data-where="id=delay_fee">—</span>% a day</div>
+      <div class="fx-asof">As of <span data-source="indicators" data-field="asof" data-where="id=dha_sla">—</span></div>
+    </div>
+    <div class="fx-tile" data-id="dubai_claims" id="kpi-claims">
+      <div class="fx-tl">Dubai health claims, 2025</div>
+      <div class="fx-tv"><span data-source="indicators" data-field="value" data-where="id=dubai_claims" class="dash-skeleton">—</span><span class="fx-u">m</span></div>
+      <div class="fx-td"><span class="fx-dv" data-source="deltas" data-field="change" data-where="id=dubai_claims" data-good="up">—</span>m vs 2024</div>
+      <div class="fx-asof">Industry estimate · <span data-source="indicators" data-field="asof" data-where="id=dubai_claims">—</span></div>
+    </div>
+    <div class="fx-tile" data-id="sfnet_volume" id="kpi-sfnet">
+      <div class="fx-tl">US factoring volume</div>
+      <div class="fx-tv"><span data-source="indicators" data-field="value" data-where="id=sfnet_volume" class="dash-skeleton">—</span><span class="fx-u">% YoY</span></div>
+      <div class="fx-td">Large factors, H1 2026 (SFNet)</div>
+      <div class="fx-asof">As of <span data-source="indicators" data-field="asof" data-where="id=sfnet_volume">—</span></div>
+    </div>
+    <div class="fx-tile" data-id="gcc_gap" id="kpi-gap">
+      <div class="fx-tl">GCC SME finance gap</div>
+      <div class="fx-tv"><span class="fx-u" style="margin:0 .1em 0 0">$</span><span data-source="indicators" data-field="value" data-where="id=gcc_gap" class="dash-skeleton">—</span><span class="fx-u">bn</span></div>
+      <div class="fx-td">Estimate cited by MEVP</div>
+      <div class="fx-asof">As of <span data-source="indicators" data-field="asof" data-where="id=gcc_gap">—</span></div>
+    </div>
+  </section>
+
+  <nav class="fx-tabs" role="tablist" aria-label="Sections">
+    <button class="fx-tab" role="tab" data-tab="briefing" aria-selected="true">Briefing</button>
+    <button class="fx-tab" role="tab" data-tab="insurers" aria-selected="false">Insurer watch</button>
+    <button class="fx-tab" role="tab" data-tab="rates" aria-selected="false">Rates &amp; market</button>
+    <button class="fx-tab" role="tab" data-tab="regulation" aria-selected="false">Regulation watch</button>
+    <button class="fx-tab" role="tab" data-tab="competitors" aria-selected="false">Competitors</button>
+  </nav>
+
+  <section class="fx-page" id="briefing">
+    <div class="fx-grid">
+      <div>
+        <div class="fx-filters" id="filters">
+          <button class="fx-chip" data-region="All" aria-pressed="true">All</button>
+          <button class="fx-chip" data-region="UAE" aria-pressed="false">UAE</button>
+          <button class="fx-chip" data-region="GCC" aria-pressed="false">GCC</button>
+          <button class="fx-chip" data-region="Global" aria-pressed="false">Global</button>
+          <select class="fx-select" id="fx-cat" aria-label="Topic"><option value="All">All topics</option></select>
+          <label class="fx-toggle"><input type="checkbox" id="fx-high"> High relevance only</label>
+          <input class="fx-input" id="fx-q" type="search" placeholder="Search headlines" aria-label="Search headlines">
+        </div>
+        <div class="fx-feed" id="fx-feed" data-source="news"></div>
+      </div>
+      <aside class="fx-side">
+        <div class="fx-card-box" id="coverage">
+          <h2 class="fx-h2">Coverage by topic</h2>
+          <p class="fx-note">Stories in the feed per topic. Click one to filter.</p>
+          <div class="fx-bars" id="fx-bars" data-source="by_category"></div>
+        </div>
+        <div class="fx-card-box" id="calendar">
+          <h2 class="fx-h2">Upcoming industry dates</h2>
+          <p class="fx-note">Conferences and webinars worth a seat.</p>
+          <div class="fx-tbl-wrap">
+            <table class="fx-tbl" id="fx-events" data-source="events" data-row-key="event">
+              <thead><tr><th data-field="date">Date</th><th data-field="event">Event</th><th data-field="location">Where</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="fx-card-box" id="method">
+          <h2 class="fx-h2">How this feed works</h2>
+          <p class="fx-note" style="margin:0">Claude searches news, regulators and industry bodies each morning and adds new stories. Headlines and summaries are paraphrased; open the source for the full article. Relevance and "Why it matters" are Factor's own assessment, not the publisher's.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="fx-page" id="insurers" hidden>
+    <p class="fx-take" style="margin-bottom:var(--cds-gap-lg)">Factor is paid by the insurer, not the clinic, so the insurer is the real credit risk. This tab tracks the health payers and claims administrators behind the claims Factor buys.</p>
+    <div class="fx-kpis" id="ins-kpis">
+      <div class="fx-tile" id="kpi-ins-revenue">
+        <div class="fx-tl">Listed insurers, H1 revenue</div>
+        <div class="fx-tv"><span data-source="indicators" data-field="value" data-where="id=ins_revenue" class="dash-skeleton">—</span><span class="fx-u">AED bn</span></div>
+        <div class="fx-td"><span class="fx-dv" data-source="deltas" data-field="change" data-where="id=ins_revenue" data-good="up">—</span>bn vs H1 2025</div>
+        <div class="fx-asof">27 insurers · <span data-source="indicators" data-field="asof" data-where="id=ins_revenue">—</span></div>
+      </div>
+      <div class="fx-tile" id="kpi-ins-combined">
+        <div class="fx-tl">Combined ratio</div>
+        <div class="fx-tv"><span data-source="indicators" data-field="value" data-where="id=ins_combined" class="dash-skeleton">—</span><span class="fx-u">%</span></div>
+        <div class="fx-td">Below 100% means underwriting profit</div>
+        <div class="fx-asof">H1 2026 · <span data-source="indicators" data-field="asof" data-where="id=ins_combined">—</span></div>
+      </div>
+      <div class="fx-tile" id="kpi-daman-solvency">
+        <div class="fx-tl">Daman solvency</div>
+        <div class="fx-tv"><span data-source="indicators" data-field="value" data-where="id=ins_daman_solvency" class="dash-skeleton">—</span><span class="fx-u">%</span></div>
+        <div class="fx-td">CBUAE minimum is 100%</div>
+        <div class="fx-asof">As of <span data-source="indicators" data-field="asof" data-where="id=ins_daman_solvency">—</span></div>
+      </div>
+      <div class="fx-tile" id="kpi-flagged">
+        <div class="fx-tl">Payers flagged</div>
+        <div class="fx-tv"><span data-source="watch_counts" data-field="high" data-row="0" class="dash-skeleton">—</span><span class="fx-u">high concern</span></div>
+        <div class="fx-td"><span data-source="watch_counts" data-field="medium" data-row="0">—</span> more on medium watch</div>
+        <div class="fx-asof">Of <span data-source="watch_counts" data-field="insurers" data-row="0">—</span> insurers tracked</div>
+      </div>
+    </div>
+    <div class="fx-card-box" id="insurer-table">
+      <h2 class="fx-h2">Payer watchlist</h2>
+      <p class="fx-note">Watch level is Factor's own view from ratings, results and capital. High: avoid until fixed. Medium: small limits. Low: normal limits, subject to a cap per insurer. Ratings and figures link to their source.</p>
+      <div class="fx-filters" id="ins-filters">
+        <button class="fx-chip" data-watch="All" aria-pressed="true">All</button>
+        <button class="fx-chip" data-watch="High" aria-pressed="false">High</button>
+        <button class="fx-chip" data-watch="Medium" aria-pressed="false">Medium</button>
+        <button class="fx-chip" data-watch="Low" aria-pressed="false">Low</button>
+        <button class="fx-chip" data-watch="TPA" aria-pressed="false">Claims administrators</button>
+      </div>
+      <div class="fx-tbl-wrap">
+        <table class="fx-tbl" id="fx-ins" data-source="insurers" data-row-key="name">
+          <thead><tr><th data-field="name">Payer</th><th data-field="watch">Watch</th><th data-field="rating">Rating</th><th data-field="medical">Health focus</th><th data-field="signal">Latest signal</th><th data-field="note">What it means for Factor</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="fx-page" id="rates" hidden>
+    <div class="fx-two">
+      <div class="fx-card-box">
+        <h2 class="fx-h2">UAE base rate decisions</h2>
+        <p class="fx-note">CBUAE overnight deposit rate, which follows the US Fed through the dirham peg. Factor's funding cost moves with it.</p>
+        <div class="fx-chart" id="fx-rates" data-source="rates"></div>
+      </div>
+      <div class="fx-card-box">
+        <h2 class="fx-h2">Market indicators</h2>
+        <p class="fx-note">Each figure with its date and where it comes from.</p>
+        <div class="fx-tbl-wrap">
+          <table class="fx-tbl" id="fx-ind" data-source="indicators" data-row-key="label">
+            <thead><tr><th data-field="label">Indicator</th><th data-field="value">Value</th><th data-field="unit">Unit</th><th data-field="asof">As of</th><th data-field="source">Source</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fx-page" id="regulation" hidden>
+    <div class="fx-card-box">
+      <h2 class="fx-h2">Regulation watch</h2>
+      <p class="fx-note">Laws and rules that decide how Factor is licensed, how it takes title to claims, and when insurers pay. Not legal advice; confirm with counsel.</p>
+      <div class="fx-tbl-wrap">
+        <table class="fx-tbl" id="fx-reg" data-source="regulation" data-row-key="instrument">
+          <thead><tr><th data-field="instrument">Instrument</th><th data-field="issuer">Issuer</th><th data-field="status">Status</th><th data-field="effective">Effective</th><th data-field="impact">What it means for Factor</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="fx-page" id="competitors" hidden>
+    <div class="fx-card-box">
+      <h2 class="fx-h2">Who else funds receivables in the region</h2>
+      <p class="fx-note">Fintechs, platforms and banks offering invoice discounting or adjacent working-capital products. None of those listed states a healthcare-claims focus.</p>
+      <div class="fx-filters"><input class="fx-input" id="fx-cq" type="search" placeholder="Search competitors" aria-label="Search competitors"></div>
+      <div class="fx-tbl-wrap">
+        <table class="fx-tbl" id="fx-comp" data-source="competitors" data-row-key="name">
+          <thead><tr><th data-field="name">Name</th><th data-field="base">Base</th><th data-field="type">Type</th><th data-field="offer">Offer</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <p class="fx-foot">Prepared for Factor shareholders. Every story and figure links to its source; figures from industry blogs are marked as estimates. Last updated <span id="fx-updated">—</span>.</p>
+</div>
+
+<script>
+(function () {
+  const $ = (s) => document.querySelector(s);
+  const root = $('.fx');
+  root.style.setProperty('--fx-accent', dash.colors[0]);
+  const parseD = (d) => new Date(String(d).slice(0, 10) + 'T00:00:00Z');
+  const fmtDate = (d) => (d && /^\d{4}-\d{2}-\d{2}/.test(d)) ? d3.utcFormat('%-d %b %Y')(parseD(d)) : (d && /^\d{4}-\d{2}$/.test(d) ? d3.utcFormat('%b %Y')(new Date(d + '-01T00:00:00Z')) : (d || '—'));
+  const safe = (u) => (/^https:\/\//.test(u || '') ? u : null);
+  const failLine = () => { const e = document.createElement('div'); e.className = 'fx-fail'; e.textContent = 'Failed to load'; return e; };
+  const bad = (s) => s === 'error' || s === 'connect' || s === 'declined' || s === 'missing';
+
+  dash.calc('news_summary', {
+    inputs: ['news'], title: 'Briefing totals',
+    description: 'Counts the stories in the feed and those rated high relevance to Factor.',
+    fn: (news) => [{ total: news.length, high: news.filter((n) => n.relevance === 'High').length }],
+  });
+  dash.calc('deltas', {
+    inputs: ['indicators'], title: 'Change from previous',
+    description: 'Latest value minus the previous value, for indicators that have one.',
+    fn: (indicators) => indicators.filter((r) => r.previous !== null && r.previous !== undefined && r.previous !== '')
+      .map((r) => ({ id: r.id, change: Math.round((Number(r.value) - Number(r.previous)) * 100) / 100 })),
+  });
+  dash.calc('by_category', {
+    inputs: ['news'], title: 'Stories per topic',
+    description: 'Number of stories in the feed for each topic.',
+    fn: (news) => {
+      const c = {};
+      news.forEach((n) => { c[n.category] = (c[n.category] || 0) + 1; });
+      return Object.keys(c).map((k) => ({ category: k, items: c[k] })).sort((a, b) => b.items - a.items);
+    },
+  });
+
+  dash.calc('watch_counts', {
+    inputs: ['insurers'], title: 'Payers by watch level',
+    description: 'Counts insurers (not claims administrators) on high and medium watch.',
+    fn: (insurers) => {
+      const ins = insurers.filter((r) => r.type === 'Insurer');
+      return [{ insurers: ins.length, high: ins.filter((r) => r.watch === 'High').length, medium: ins.filter((r) => r.watch === 'Medium').length }];
+    },
+  });
+
+  const VAL = { base_rate: (v) => v.toFixed(2), eibor_3m: (v) => v.toFixed(2), dha_sla: (v) => String(v), delay_fee: (v) => String(v),
+    dubai_claims: (v) => v.toFixed(1), sfnet_volume: (v) => v.toFixed(1), gcc_gap: (v) => String(v),
+    ins_revenue: (v) => v.toFixed(1), ins_combined: (v) => String(v), ins_daman_solvency: (v) => String(v) };
+  const DEC = { base_rate: 2, dubai_claims: 1, ins_revenue: 1 };
+
+  const f = { region: 'All', category: 'All', high: false, q: '', watch: 'All' };
+  let current = 'briefing';
+
+  function fillIndicators() {
+    const d = dash.data('indicators');
+    document.querySelectorAll('[data-source="indicators"][data-where]').forEach((el) => {
+      if (d.status !== 'ok') { if (bad(d.status)) { el.classList.remove('dash-skeleton'); el.textContent = '—'; } return; }
+      el.classList.remove('dash-skeleton');
+      const id = decodeURIComponent(el.getAttribute('data-where').split('=')[1]);
+      const r = d.data.find((x) => x.id === id);
+      if (!r) { el.textContent = '—'; return; }
+      const field = el.getAttribute('data-field');
+      if (field === 'value') el.textContent = (VAL[id] || String)(Number(r.value));
+      else if (field === 'asof') el.textContent = fmtDate(r.asof);
+    });
+    const dl = dash.data('deltas');
+    document.querySelectorAll('.fx-dv').forEach((el) => {
+      el.className = 'fx-dv';
+      if (dl.status !== 'ok') { el.textContent = '—'; return; }
+      const id = decodeURIComponent(el.getAttribute('data-where').split('=')[1]);
+      const r = dl.data.find((x) => x.id === id);
+      if (!r) { el.textContent = '—'; return; }
+      const v = Number(r.change);
+      el.textContent = (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(DEC[id] ?? 2);
+      const goodUp = el.dataset.good === 'up';
+      if (v !== 0) el.classList.add(goodUp ? (v > 0 ? 'up-good' : 'down-bad') : (v > 0 ? 'up-bad' : 'up-good'));
+    });
+  }
+
+  function fillSummary() { fillCalc('news_summary'); fillCalc('watch_counts'); }
+  function fillCalc(id) {
+    const s = dash.data(id);
+    document.querySelectorAll('[data-source="' + id + '"]').forEach((el) => {
+      if (s.status !== 'ok') { if (bad(s.status)) { el.classList.remove('dash-skeleton'); el.textContent = '—'; } return; }
+      el.classList.remove('dash-skeleton');
+      el.textContent = String(s.data[0][el.getAttribute('data-field')]);
+    });
+  }
+
+  function fillCategories() {
+    const d = dash.data('news');
+    const sel = $('#fx-cat');
+    if (d.status !== 'ok') return;
+    const cats = [...new Set(d.data.map((n) => n.category))].sort();
+    if (sel.options.length !== cats.length + 1) {
+      sel.replaceChildren(new Option('All topics', 'All'), ...cats.map((c) => new Option(c, c)));
+    }
+    sel.value = f.category;
+  }
+
+  function renderFeed() {
+    const box = $('#fx-feed');
+    const d = dash.data('news');
+    box.replaceChildren();
+    if (d.status !== 'ok') {
+      if (bad(d.status)) { box.classList.remove('dash-skeleton'); box.append(failLine()); } else box.classList.add('dash-skeleton');
+      return;
+    }
+    box.classList.remove('dash-skeleton');
+    const q = f.q.trim().toLowerCase();
+    const rows = d.data.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)))
+      .filter((n) => (f.region === 'All' || n.region === f.region)
+        && (f.category === 'All' || n.category === f.category)
+        && (!f.high || n.relevance === 'High')
+        && (!q || (n.headline + ' ' + n.summary + ' ' + n.source).toLowerCase().includes(q)));
+    if (!rows.length) {
+      const e = document.createElement('div'); e.className = 'fx-empty'; e.textContent = 'No stories match these filters.'; box.append(e); return;
+    }
+    for (const n of rows) {
+      const w = 'id=' + encodeURIComponent(n.id);
+      const mk = (tag, cls, field, text) => {
+        const e = document.createElement(tag); if (cls) e.className = cls;
+        e.setAttribute('data-source', 'news'); e.setAttribute('data-field', field); e.setAttribute('data-where', w);
+        e.textContent = text; return e;
+      };
+      const card = document.createElement('article'); card.className = 'fx-item'; card.dataset.rel = n.relevance; card.id = 'story-' + n.id;
+      const meta = document.createElement('div'); meta.className = 'fx-meta';
+      meta.append(mk('span', '', 'date', fmtDate(n.date)), mk('span', 'fx-tag', 'region', n.region), mk('span', 'fx-tag', 'category', n.category), mk('span', 'fx-rel', 'relevance', n.relevance));
+      const hl = mk('a', 'fx-hl', 'headline', n.headline);
+      if (safe(n.url)) { hl.href = n.url; hl.target = '_blank'; hl.rel = 'noopener noreferrer'; }
+      const sum = mk('p', 'fx-sum', 'summary', n.summary);
+      const why = document.createElement('p'); why.className = 'fx-why';
+      const lbl = document.createElement('b'); lbl.textContent = 'Why it matters';
+      why.append(lbl, mk('span', '', 'why', n.why));
+      const src = document.createElement('div'); src.className = 'fx-src';
+      src.append('Source: ', mk('span', '', 'source', n.source));
+      card.append(meta, hl, sum, why, src);
+      box.append(card);
+    }
+  }
+
+  function renderBars() {
+    const box = $('#fx-bars');
+    const d = dash.data('by_category');
+    box.replaceChildren();
+    if (d.status !== 'ok') { if (bad(d.status)) box.append(failLine()); return; }
+    const max = d3.max(d.data, (r) => r.items) || 1;
+    d.data.forEach((r) => {
+      const b = document.createElement('button'); b.className = 'fx-bar'; b.type = 'button';
+      b.setAttribute('aria-pressed', String(f.category === r.category));
+      const lb = document.createElement('span'); lb.className = 'lb'; lb.textContent = r.category;
+      const tr = document.createElement('span'); tr.className = 'tr';
+      const fl = document.createElement('span'); fl.className = 'fl'; fl.style.display = 'block'; fl.style.width = (r.items / max * 100) + '%'; tr.append(fl);
+      const n = document.createElement('span'); n.className = 'n';
+      n.setAttribute('data-source', 'by_category'); n.setAttribute('data-field', 'items'); n.setAttribute('data-where', 'category=' + encodeURIComponent(r.category));
+      n.textContent = String(r.items);
+      b.append(lb, tr, n);
+      b.addEventListener('click', () => { f.category = f.category === r.category ? 'All' : r.category; draw(); });
+      box.append(b);
+    });
+  }
+
+  function renderTable(sel, id, cols, opt) {
+    const t = $(sel); const tb = t.tBodies[0];
+    tb.replaceChildren();
+    const d = dash.data(id);
+    if (d.status !== 'ok') {
+      if (bad(d.status)) { const tr = tb.insertRow(); const td = tr.insertCell(); td.colSpan = cols.length; td.append(failLine()); }
+      return;
+    }
+    let rows = d.data.slice();
+    if (opt && opt.sort) rows.sort(opt.sort);
+    if (opt && opt.filter) rows = rows.filter(opt.filter);
+    rows.forEach((r) => {
+      const tr = tb.insertRow();
+      cols.forEach((c) => {
+        const td = tr.insertCell();
+        if (c.cls) td.className = c.cls;
+        const v = r[c.f];
+        const text = c.fmt ? c.fmt(v, r) : (v === null || v === undefined || v === '' ? '—' : String(v));
+        if (c.pill) {
+          const s = document.createElement('span'); s.className = 'fx-w w-' + String(v).toLowerCase(); s.textContent = text; td.append(s);
+        } else if (c.link && safe(r.url)) {
+          const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = text; td.append(a);
+        } else td.textContent = text;
+      });
+    });
+  }
+
+  function renderRates() {
+    const box = $('#fx-rates');
+    box.replaceChildren();
+    const d = dash.data('rates');
+    if (d.status !== 'ok') { if (bad(d.status)) box.append(failLine()); return; }
+    const W = Math.max(box.clientWidth, 300), H = 280, m = { t: 20, r: 64, b: 30, l: 48 };
+    const pts = d.data.map((r) => ({ date: parseD(r.decided), v: Number(r.base_rate), dec: r.decision, raw: r.decided })).sort((a, b) => a.date - b.date);
+    if (!pts.length) return;
+    const end = new Date();
+    const x = d3.scaleUtc([pts[0].date, end], [m.l, W - m.r]);
+    const y = d3.scaleLinear([3.4, 4.6], [H - m.b, m.t]);
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'UAE base rate decisions');
+    const yt = [3.5, 4.0, 4.5];
+    svg.append('g').selectAll('line').data(yt).join('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y).attr('y2', y).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(yt).join('text').attr('x', m.l - 8).attr('y', (v) => y(v) + 4).attr('text-anchor', 'end')
+      .attr('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)').text((v) => v.toFixed(2) + '%');
+    const xa = svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.min(6, Math.floor(W / 110)))).tickFormat(d3.utcFormat('%b %y')).tickSizeOuter(0));
+    xa.attr('font-size', null).attr('font-family', null);
+    xa.select('.domain').attr('stroke', 'var(--cds-chart-axis)');
+    xa.selectAll('line').attr('stroke', 'var(--cds-chart-axis)');
+    xa.selectAll('text').attr('fill', 'var(--color-fg-muted)').style('font-size', 'var(--cds-font-size-caption)');
+    const line = d3.line().x((p) => x(p.date)).y((p) => y(p.v)).curve(d3.curveStepAfter);
+    svg.append('path').datum([...pts, { date: end, v: pts[pts.length - 1].v }]).attr('d', line).attr('fill', 'none')
+      .attr('stroke', dash.colors[0]).attr('stroke-width', 2).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round');
+    const last = pts[pts.length - 1];
+    svg.append('text').attr('x', W - m.r + 6).attr('y', y(last.v) + 4).attr('fill', 'var(--color-fg)').style('font-size', 'var(--cds-font-size-caption)').style('font-weight', '600').text(last.v.toFixed(2) + '%');
+    const tip = document.createElement('div'); tip.className = 'fx-tip'; box.append(tip);
+    svg.append('g').selectAll('circle').data(pts).join('circle').attr('cx', (p) => x(p.date)).attr('cy', (p) => y(p.v)).attr('r', 5)
+      .attr('fill', (p) => (p.dec === 'Hold' ? 'var(--color-panel)' : dash.colors[0])).attr('stroke', dash.colors[0]).attr('stroke-width', 2).style('cursor', 'default')
+      .on('mouseenter', (ev, p) => {
+        tip.replaceChildren();
+        const k = document.createElement('div'); k.className = 'k'; k.textContent = fmtDate(p.raw);
+        const v = document.createElement('div'); v.textContent = p.dec + ' · ' + p.v.toFixed(2) + '%';
+        tip.append(k, v);
+        const px = x(p.date) / W * box.clientWidth, py = y(p.v) / H * (box.clientWidth * H / W);
+        tip.style.opacity = 1;
+        const tw = tip.offsetWidth;
+        tip.style.left = Math.min(Math.max(0, px - tw / 2), box.clientWidth - tw) + 'px';
+        tip.style.top = Math.max(0, py - 52) + 'px';
+      })
+      .on('mouseleave', () => { tip.style.opacity = 0; });
+  }
+
+  function draw() {
+    fillSummary();
+    fillIndicators();
+    document.querySelectorAll('#filters .fx-chip').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.region === f.region)));
+    $('#fx-high').checked = f.high;
+    fillCategories();
+    if (current === 'briefing') {
+      renderFeed();
+      renderBars();
+      renderTable('#fx-events', 'events', [
+        { f: 'date', fmt: (v) => fmtDate(v), cls: 'num' }, { f: 'event', link: true }, { f: 'location' },
+      ], { sort: (a, b) => String(a.date).localeCompare(String(b.date)) });
+    } else if (current === 'insurers') {
+      document.querySelectorAll('#ins-filters .fx-chip').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.watch === f.watch)));
+      const order = { High: 0, Medium: 1, Low: 2, TPA: 3 };
+      renderTable('#fx-ins', 'insurers', [
+        { f: 'name', link: true }, { f: 'watch', pill: true }, { f: 'rating' }, { f: 'medical' }, { f: 'signal' }, { f: 'note' },
+      ], { sort: (a, b) => (order[a.watch] ?? 9) - (order[b.watch] ?? 9) || String(a.name).localeCompare(String(b.name)),
+           filter: (r) => f.watch === 'All' || r.watch === f.watch });
+    } else if (current === 'rates') {
+      renderRates();
+      renderTable('#fx-ind', 'indicators', [
+        { f: 'label' }, { f: 'value', cls: 'num' }, { f: 'unit' }, { f: 'asof', fmt: (v) => fmtDate(v), cls: 'num' }, { f: 'source', link: true },
+      ]);
+    } else if (current === 'regulation') {
+      renderTable('#fx-reg', 'regulation', [
+        { f: 'instrument', link: true }, { f: 'issuer' }, { f: 'status' }, { f: 'effective', fmt: (v) => (v ? fmtDate(v) : '—'), cls: 'num' }, { f: 'impact' },
+      ]);
+    } else if (current === 'competitors') {
+      const q = ($('#fx-cq').value || '').trim().toLowerCase();
+      renderTable('#fx-comp', 'competitors', [
+        { f: 'name', link: true }, { f: 'base' }, { f: 'type' }, { f: 'offer' },
+      ], { sort: (a, b) => String(a.type).localeCompare(String(b.type)) || String(a.name).localeCompare(String(b.name)),
+           filter: (r) => !q || (r.name + ' ' + r.base + ' ' + r.type + ' ' + r.offer).toLowerCase().includes(q) });
+    }
+  }
+
+  const tabs = [...document.querySelectorAll('.fx-tab')];
+  function show(id, link) {
+    if (!document.getElementById(id) || !tabs.some((t) => t.dataset.tab === id)) return;
+    current = id;
+    tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === id)));
+    document.querySelectorAll('.fx-page').forEach((p) => { p.hidden = p.id !== id; });
+    if (link !== false) dash.setLink(id);
+    draw();
+  }
+  tabs.forEach((t) => t.addEventListener('click', () => show(t.dataset.tab)));
+  document.querySelectorAll('#filters .fx-chip').forEach((c) => c.addEventListener('click', () => { f.region = c.dataset.region; draw(); }));
+  $('#fx-cat').addEventListener('change', (e) => { f.category = e.target.value; draw(); });
+  $('#fx-high').addEventListener('change', (e) => { f.high = e.target.checked; draw(); });
+  $('#fx-q').addEventListener('input', (e) => { f.q = e.target.value; renderFeed(); });
+  $('#fx-cq').addEventListener('input', () => draw());
+  document.querySelectorAll('#ins-filters .fx-chip').forEach((c) => c.addEventListener('click', () => { f.watch = c.dataset.watch; draw(); }));
+
+  const hash = location.hash.slice(1);
+  if (hash && tabs.some((t) => t.dataset.tab === hash)) show(hash, false);
+  dash.onData(draw);
+})();
+</script>
+
+</div></body></html>

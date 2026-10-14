@@ -1,0 +1,100 @@
+[
+ {
+  "name": "Comfi",
+  "base": "Dubai",
+  "type": "Fintech",
+  "offer": "Invoice discounting, B2B BNPL, dealer finance",
+  "url": "https://comfi.ai/blog/fintech-companies-in-dubai"
+ },
+ {
+  "name": "Aura Finance",
+  "base": "UAE",
+  "type": "Fintech",
+  "offer": "Confidential invoice discounting, invoices from AED 10,000",
+  "url": "https://aurafinance.me/resources/uae-sme-invoice-factoring-guide"
+ },
+ {
+  "name": "Invoice Bazaar",
+  "base": "Dubai",
+  "type": "Fintech",
+  "offer": "Invoice discounting marketplace for SMEs",
+  "url": "https://www.goodfirms.co/business-services/factoring/uae"
+ },
+ {
+  "name": "Dar Al Tawreeq",
+  "base": "Dubai",
+  "type": "Specialist factor",
+  "offer": "Factoring of approved supplier invoices",
+  "url": "https://www.goodfirms.co/business-services/factoring/uae"
+ },
+ {
+  "name": "CredibleX",
+  "base": "Abu Dhabi",
+  "type": "Fintech",
+  "offer": "Embedded SME working capital and receivables finance",
+  "url": "https://www.kenresearch.com/industry-reports/uae-fintech-lending-sme-credit-platforms-market"
+ },
+ {
+  "name": "Zelo",
+  "base": "Abu Dhabi",
+  "type": "Fintech",
+  "offer": "Receivables, working capital and embedded SME finance",
+  "url": "https://www.kenresearch.com/industry-reports/uae-fintech-lending-sme-credit-platforms-market"
+ },
+ {
+  "name": "Numou",
+  "base": "Abu Dhabi",
+  "type": "Fintech",
+  "offer": "SME financing marketplace and procurement finance",
+  "url": "https://www.kenresearch.com/industry-reports/uae-fintech-lending-sme-credit-platforms-market"
+ },
+ {
+  "name": "Fincobox",
+  "base": "Dubai",
+  "type": "Fintech",
+  "offer": "Invoice discounting up to 90%, revenue-based and PO finance",
+  "url": "https://www.on-magazine.co.uk/business/finance/uae-fintech-boom-payments-sme-finance-and-crypto-firms-drive-growth/"
+ },
+ {
+  "name": "Beehive",
+  "base": "Dubai (DIFC)",
+  "type": "P2P platform",
+  "offer": "DFSA-regulated SME funding marketplace, part of e&",
+  "url": "https://comfi.ai/blog/fintech-companies-in-dubai"
+ },
+ {
+  "name": "Funding Souq",
+  "base": "UAE / KSA",
+  "type": "P2P platform",
+  "offer": "DFSA-regulated, Shariah-compliant SME funding",
+  "url": "https://comfi.ai/blog/small-business-lender"
+ },
+ {
+  "name": "Flow48",
+  "base": "Dubai",
+  "type": "Fintech",
+  "offer": "Revenue-based finance; about $67.7m raised",
+  "url": "https://fintechnews.ae/30634/fintechdubai/top-funded-uae-fintech-startups-of-2026/"
+ },
+ {
+  "name": "erad",
+  "base": "Riyadh",
+  "type": "Fintech",
+  "offer": "Shariah-compliant SME finance; $22m Series A, Sep 2026",
+  "url": "https://fintech.global/2026/09/28/erad-secures-22m-series-a-to-power-gcc-sme-financing/"
+ },
+ {
+  "name": "Emirates NBD",
+  "base": "Dubai",
+  "type": "Bank",
+  "offer": "smartSCF platform, invoice discounting, receivables finance",
+  "url": "https://www.emiratesnbd.com/en/corporate-and-institutional-banking/transaction-banking/trade-supply-chain-finance"
+ },
+ {
+  "name": "Commercial Bank of Dubai",
+  "base": "Dubai",
+  "type": "Bank",
+  "offer": "Invoice discounting, 30 to 120 day tenors, AED 2m+ turnover",
+  "url": "https://www.cbd.ae/business/working-capital-and-trade-finance/working-capital-loans/invoice-discounting"
+ }
+]

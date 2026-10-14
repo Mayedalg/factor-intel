@@ -1,0 +1,37 @@
+[
+ {
+  "decided": "2025-07-30",
+  "base_rate": 4.4,
+  "decision": "Hold"
+ },
+ {
+  "decided": "2025-09-17",
+  "base_rate": 4.15,
+  "decision": "Cut"
+ },
+ {
+  "decided": "2025-10-29",
+  "base_rate": 3.9,
+  "decision": "Cut"
+ },
+ {
+  "decided": "2025-12-10",
+  "base_rate": 3.65,
+  "decision": "Cut"
+ },
+ {
+  "decided": "2026-06-17",
+  "base_rate": 3.65,
+  "decision": "Hold"
+ },
+ {
+  "decided": "2026-07-29",
+  "base_rate": 3.65,
+  "decision": "Hold"
+ },
+ {
+  "decided": "2026-09-16",
+  "base_rate": 3.9,
+  "decision": "Hike"
+ }
+]

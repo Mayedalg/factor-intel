@@ -1,0 +1,72 @@
+[
+ {
+  "id": "r1",
+  "instrument": "Federal Decree-Law 16 of 2021 on Factoring",
+  "issuer": "UAE federal",
+  "status": "In force",
+  "effective": "2021-12-08",
+  "what": "Governs sale, discounting and assignment of receivables, including future receivables, with or without recourse.",
+  "impact": "The legal basis for Factor's assignments; registration is what protects priority.",
+  "url": "https://www.mondaq.com/financial-services/1648840/navigating-the-regulatory-triad-supply-chain-financing-in-uae-difc-and-adgm"
+ },
+ {
+  "id": "r2",
+  "instrument": "Federal Decree-Law 6 of 2025, Central Bank Law",
+  "issuer": "CBUAE",
+  "status": "In force; transition ended Sep 2026",
+  "effective": "2025-09-16",
+  "what": "Consolidates banking, finance companies, payments and insurance under CBUAE; fines up to ten times the violation.",
+  "impact": "Sets the licence Factor needs and the penalty regime; the one-year reconciliation window has now closed.",
+  "url": "https://hadefpartners.com/news-insights/insights/uae-central-bank-law-2026-developments-and-the-september-2026-reconciliation-deadline/"
+ },
+ {
+  "id": "r3",
+  "instrument": "Finance Companies Regulation",
+  "issuer": "CBUAE",
+  "status": "In force",
+  "effective": "",
+  "what": "Licensing and prudential rules for Finance Companies and Restricted Licence Finance Companies.",
+  "impact": "The likely onshore licensing route; confirm with counsel whether discounting needs a full or restricted licence.",
+  "url": "https://regalert.today/document/finance-companies-regulation-14e9c97e-c25c-4878-9f7e-ff0fb39dfbc9/text"
+ },
+ {
+  "id": "r4",
+  "instrument": "Health Insurance Claims Management Policy Directive",
+  "issuer": "DHIC / DHA",
+  "status": "In force",
+  "effective": "2025-11-16",
+  "what": "Replaces earlier Dubai claims rules: pre-authorisation, submission, adjudication, settlement and reconciliation timelines.",
+  "impact": "Defines how and when claims Factor buys get paid; tracks the data Factor can verify against.",
+  "url": "https://www.tamimi.com/news/dubai-issues-comprehensive-overhaul-of-health-insurance-claims-management-framework/"
+ },
+ {
+  "id": "r5",
+  "instrument": "Dubai claims settlement timelines",
+  "issuer": "DHA eClaimLink",
+  "status": "In force",
+  "effective": "",
+  "what": "Insurers pay within 45 days of submission; a 0.03% daily fee applies to late payment.",
+  "impact": "Anchors Factor's tenor and pricing; check whether the late fee follows the assigned claim.",
+  "url": "https://www.uaeexperthub.com/health-insurance-for-expats-in-the-uae-mandatory-rules-costs-and-penalties/"
+ },
+ {
+  "id": "r6",
+  "instrument": "Operational Risk and Operational Resilience Regulation (C1/2026)",
+  "issuer": "CBUAE",
+  "status": "Issued",
+  "effective": "2026-02",
+  "what": "Licensed institutions need frameworks for operational risk and resilience.",
+  "impact": "Applies once licensed; Factor's AI-run screening and onboarding will need documented controls.",
+  "url": "https://hadefpartners.com/news-insights/insights/uae-central-bank-law-2026-developments-and-the-september-2026-reconciliation-deadline/"
+ },
+ {
+  "id": "r7",
+  "instrument": "Telemarketing Regulation (C3/2026)",
+  "issuer": "CBUAE",
+  "status": "In force",
+  "effective": "2026-03-31",
+  "what": "Tightens rules on marketing financial products and services.",
+  "impact": "Shapes how Factor can run outbound sales to clinics.",
+  "url": "https://hadefpartners.com/news-insights/insights/uae-central-bank-law-2026-developments-and-the-september-2026-reconciliation-deadline/"
+ }
+]
