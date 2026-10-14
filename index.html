@@ -390,6 +390,16 @@ window.dash=(function(){
 
   const f = { region: 'All', category: 'All', high: false, q: '', watch: 'All' };
   let current = 'briefing';
+  const toPoints = (v) => {
+    if (Array.isArray(v)) return v.map(String).filter((s) => s.trim());
+    if (v && typeof v === 'object') return Object.values(v).map(String).filter((s) => s.trim());
+    if (typeof v === 'string' && v.trim()) {
+      const s = v.trim();
+      if (s.startsWith('[')) { try { const a = JSON.parse(s); if (Array.isArray(a)) return a.map(String).filter((x) => x.trim()); } catch (e) { /* fall through */ } }
+      return s.split(/\n+|\s\|\s/).map((x) => x.replace(/^[-•]\s*/, '').trim()).filter(Boolean);
+    }
+    return [];
+  };
   const openIds = new Set();
 
   function fillIndicators() {
@@ -481,7 +491,7 @@ window.dash=(function(){
         const brief = document.createElement('div'); brief.className = 'fx-brief';
         const h = document.createElement('div'); h.className = 'fx-brief-h'; h.textContent = 'What the article says';
         const ul = document.createElement('ul');
-        (Array.isArray(n.points) ? n.points : []).forEach((p) => { const li = document.createElement('li'); li.textContent = p; ul.append(li); });
+        toPoints(n.points).forEach((p) => { const li = document.createElement('li'); li.textContent = p; ul.append(li); });
         brief.append(h);
         if (ul.children.length) brief.append(ul); else { const e = document.createElement('p'); e.className = 'fx-note'; e.textContent = 'No detailed summary yet for this story.'; brief.append(e); }
         card.append(brief);
