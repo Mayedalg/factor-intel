@@ -1,0 +1,209 @@
+[
+ {
+  "id": "c01",
+  "date": "2026-09-28",
+  "competitor": "erad",
+  "overlap": "Adjacent: SME invoices",
+  "relevance": "High",
+  "headline": "erad raises $22m Series A led by MEVP",
+  "summary": "The Riyadh-based Shariah-compliant SME lender is expanding across the GCC, including the UAE.",
+  "points": [
+   "The round was led by MEVP; erad's Saudi business grew eightfold in a year.",
+   "It has financed over SAR 500m and received more than SAR 4bn of funding applications.",
+   "New products target capital-heavy sectors such as industry, logistics and manufacturing.",
+   "MEVP describes the GCC SME financing gap as about $250bn."
+  ],
+  "why": "A well-funded regional lender moving into the UAE; it competes for SME clients, though not yet in healthcare claims.",
+  "source": "FinTech Global",
+  "url": "https://fintech.global/2026/09/28/erad-secures-22m-series-a-to-power-gcc-sme-financing/"
+ },
+ {
+  "id": "c02",
+  "date": "2026-09-08",
+  "competitor": "Numou (ADGM)",
+  "overlap": "Adjacent: SME invoices",
+  "relevance": "Medium",
+  "headline": "ADGM's Numou marketplace nears 1,000 SMEs and AED 200m of requests",
+  "summary": "Abu Dhabi's SME financing marketplace lets businesses compare offers from banks, fintechs and government programmes.",
+  "points": [
+   "Numou has close to 1,000 registered SMEs, which have requested more than AED 200m of financing.",
+   "17 financing partners offer over 40 products, including receivables lender Zelo, invoice financier Abhi and revenue-based lender FlapKap.",
+   "It pulls in bank statements, contracts, purchase orders and invoices so lenders see a fuller picture of each applicant.",
+   "A bank-account journey is planned as the next phase."
+  ],
+  "why": "A distribution channel, not just a rival: Factor could join Numou as a financing partner to reach Abu Dhabi clinics.",
+  "source": "Aletihad",
+  "url": "https://en.aletihad.ae/news/business/4690347/javasxript:"
+ },
+ {
+  "id": "c03",
+  "date": "2026-07-05",
+  "competitor": "Beehive",
+  "overlap": "Adjacent: SME invoices",
+  "relevance": "Medium",
+  "headline": "Beehive takes a majority stake in Saudi crowdfunding platform Thimar",
+  "summary": "The Dubai SME lending marketplace, part of e&, bought control of a licensed Saudi debt crowdfunding platform.",
+  "points": [
+   "Beehive Group Holdings acquired a majority of Thimar; the stake size was not disclosed.",
+   "Thimar gives Beehive a fully regulated platform in Saudi Arabia.",
+   "Beehive entered Saudi Arabia in 2020 through bank partnerships and has financed more than 3,000 SMEs across the GCC."
+  ],
+  "why": "Established UAE players are buying their way into Saudi Arabia; Factor's own GCC expansion may face the same licensing route.",
+  "source": "Mubasher",
+  "url": "https://sharikatmubasher.com/news/article/21560157/beehive-takes-majority-stake-in-saudi-thimar?lang=en"
+ },
+ {
+  "id": "c04",
+  "date": "2026-06-26",
+  "competitor": "Klaim",
+  "overlap": "Direct: healthcare claims",
+  "relevance": "High",
+  "headline": "Klaim secures up to $25m private credit facility",
+  "summary": "The healthcare claims financier added debt capacity to fund more advances to providers.",
+  "points": [
+   "The facility of up to $25m is from an undisclosed private credit lender.",
+   "It funds Klaim's Accelerate product, which advances cash to providers against eligible insurance receivables.",
+   "Klaim did not disclose provider numbers, receivables volume or revenue."
+  ],
+  "why": "Klaim is building the same funding stack Factor needs; its lender is a likely target for Factor's own warehouse line.",
+  "source": "Klaim",
+  "url": "https://www.klaim.com/news/credit-facility"
+ },
+ {
+  "id": "c05",
+  "date": "2026-06-26",
+  "competitor": "Klaim",
+  "overlap": "Direct: healthcare claims",
+  "relevance": "High",
+  "headline": "Claritev invests $2m in Klaim to grow in the US and MENA",
+  "summary": "The strategic investment supports Klaim's provider-payment platform in both regions.",
+  "points": [
+   "Claritev committed $2m and joins existing partners VMG and Ascend BPO.",
+   "Klaim now describes itself as a healthcare revenue treasury platform: forecasting, accelerating and recovering cash from insurance receivables.",
+   "It runs klaim.com in the US and klaim.ai in the Middle East."
+  ],
+  "why": "Klaim is moving beyond funding into software for clinics' revenue cycle; Factor's AI-led screening needs a clear edge on price or speed.",
+  "source": "Klaim",
+  "url": "https://www.klaim.com/news/claritev-investment"
+ },
+ {
+  "id": "c06",
+  "date": "2026-06-03",
+  "competitor": "Comfi",
+  "overlap": "Adjacent: SME invoices",
+  "relevance": "Medium",
+  "headline": "Yango Group makes its first MENA investment in Comfi",
+  "summary": "Yango's venture arm joined Comfi's pre-Series A round; the amount was not stated.",
+  "points": [
+   "Comfi offers B2B buy-now-pay-later, invoice discounting and dealer financing embedded in suppliers' workflows.",
+   "It serves more than 1,000 SMEs and has processed over 15,000 invoices.",
+   "Yango says it backs startups building digital infrastructure in emerging markets."
+  ],
+  "why": "Comfi is the best-funded UAE invoice discounter; it does not target healthcare claims today.",
+  "source": "Gulf Business",
+  "url": "https://gulfbusiness.com/en/2026/sme/yango-group-makes-first-mena-investment-in-uae-fintech-comfi-ai/"
+ },
+ {
+  "id": "c07",
+  "date": "2026-04-27",
+  "competitor": "Comfi",
+  "overlap": "Adjacent: SME invoices",
+  "relevance": "High",
+  "headline": "Comfi raises $65m pre-Series A in equity and debt",
+  "summary": "The Dubai embedded-finance startup will scale underwriting and expand across MENA and the GCC.",
+  "points": [
+   "Iliad Partners led the equity, with Yango Ventures and Raw Ventures joining.",
+   "Partners for Growth provided a credit facility and Shorooq structured a mezzanine facility.",
+   "Comfi reports over 1,000 clients and 15,000 invoices processed since its 2023 founding.",
+   "The equity and debt split was not disclosed."
+  ],
+  "why": "Shows how much capital UAE invoice finance can attract; a benchmark for Factor's own raise and debt structure.",
+  "source": "Wamda",
+  "url": "https://www.wamda.com/2026/04/comfi-expands-mena-raising-65-million-pre-series"
+ },
+ {
+  "id": "c08",
+  "date": "2026-08-04",
+  "competitor": "Fincobox",
+  "overlap": "Adjacent: SME invoices",
+  "relevance": "Low",
+  "headline": "Fincobox widens its SME liquidity products in Dubai",
+  "summary": "The firm offers invoice discounting of up to 90% within a day, alongside other short-term finance.",
+  "points": [
+   "Products include invoice discounting, revenue-based finance, purchase-order finance and short-term facilities.",
+   "It targets SMEs that banks reject for lack of collateral or slow approvals."
+  ],
+  "why": "Competes on speed for general SME invoices; not focused on insurer-backed claims.",
+  "source": "On: Yorkshire Magazine",
+  "url": "https://www.on-magazine.co.uk/business/finance/uae-fintech-boom-payments-sme-finance-and-crypto-firms-drive-growth/"
+ },
+ {
+  "id": "c09",
+  "date": "2025-03-11",
+  "competitor": "Klaim",
+  "overlap": "Direct: healthcare claims",
+  "relevance": "High",
+  "headline": "Klaim raises $26m to speed up insurance claim payments for providers",
+  "summary": "The Dubai healthcare fintech raised $10m of equity and $16m of debt to grow in the UAE, Saudi Arabia and Oman.",
+  "points": [
+   "Saudi investor Mad'a led the equity, with Morocco's CDG Invest participating.",
+   "A SAR 60m healthcare financing fund with Tharawat Tuwaiq backs its Saudi expansion.",
+   "Klaim pays providers within 24 hours of claim submission, against typical insurer cycles of 60 to 90 days.",
+   "It is moving up-market to hospital groups and larger provider networks."
+  ],
+  "why": "Klaim is Factor's closest competitor: same product, same clients, same insurers. Factor needs a clear reason for clinics to switch.",
+  "source": "MENAbytes",
+  "url": "https://www.menabytes.com/klaim-series-a/"
+ },
+ {
+  "id": "c10",
+  "date": "2025-06-12",
+  "competitor": "Aura Finance",
+  "overlap": "Adjacent: SME invoices",
+  "relevance": "Low",
+  "headline": "Aura Finance plugs invoice financing into Wafeq's accounting software",
+  "summary": "UAE SMEs using Wafeq can fund unpaid invoices through Aura without leaving their accounting tool.",
+  "points": [
+   "Invoices sync from Wafeq; the SME picks which to fund and submits.",
+   "Aura advertises advances of up to 95% of invoice value, with funds in about one business day.",
+   "The SME repays Aura directly; the figures are the companies' own claims."
+  ],
+  "why": "Embedding finance in software clinics already use is a channel Factor should copy, for example via clinic billing systems.",
+  "source": "Wafeq",
+  "url": "https://www.wafeq.com/en/press-releases/wafeq-and-aura-finance-partner-to-deliver-instant-invoice-financing-for-uae-smes"
+ },
+ {
+  "id": "c11",
+  "date": "2025-02-03",
+  "competitor": "Lendo",
+  "overlap": "Adjacent: SME invoices",
+  "relevance": "Medium",
+  "headline": "J.P. Morgan backs Saudi lender Lendo with a $690m warehouse facility",
+  "summary": "The SAR 2.6bn facility lets Lendo scale SME lending and launch new products in Saudi Arabia.",
+  "points": [
+   "J.P. Morgan led the warehouse facility, one of the largest for a GCC fintech.",
+   "Lendo previously raised a $28m Series B led by Sanabil, part of Saudi Arabia's PIF.",
+   "It fits Saudi Arabia's goal of lifting SME lending to 20% of financing by 2030."
+  ],
+  "why": "Global banks will fund GCC receivables books at scale once a track record exists; a model for Factor's later funding.",
+  "source": "IBS Intelligence",
+  "url": "https://ibsintelligence.com/ibsi-news/j-p-morgan-backs-saudis-lendo-with-690m-to-drive-sme-growth"
+ },
+ {
+  "id": "c12",
+  "date": "2024-03-11",
+  "competitor": "Klaim",
+  "overlap": "Direct: healthcare claims",
+  "relevance": "Medium",
+  "headline": "Emirates Development Bank and Klaim launch healthcare receivables financing",
+  "summary": "The state development bank teamed up with Klaim to fund insurance claims for UAE providers of all sizes.",
+  "points": [
+   "Klaim buys claims from providers, collects from insurers and runs the process end to end.",
+   "Providers can be paid within 24 hours instead of waiting 60 to 90 days.",
+   "EDB put UAE annual healthcare claims at about AED 22bn, with AED 5.5bn unsettled at any time."
+  ],
+  "why": "Klaim has government-backed funding behind it; Factor could seek a similar EDB arrangement.",
+  "source": "Emirates Development Bank",
+  "url": "https://edb.gov.ae/posts/emirates-development-bank-and-klaim-unveil-working-capital-solutions-improving-cash-flows-for-healthcare-providers"
+ }
+]

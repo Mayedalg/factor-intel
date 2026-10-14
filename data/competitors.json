@@ -1,5 +1,12 @@
 [
  {
+  "name": "Klaim",
+  "base": "Dubai / Riyadh",
+  "type": "Fintech",
+  "offer": "Healthcare insurance-claims financing: pays providers within 24h and collects from insurers; also in KSA and the US",
+  "url": "https://www.menabytes.com/klaim-series-a/"
+ },
+ {
   "name": "Comfi",
   "base": "Dubai",
   "type": "Fintech",

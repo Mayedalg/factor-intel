@@ -28,7 +28,7 @@ a{color:inherit}
 </style>
 <script>
 window.dash=(function(){
-  var FILES={news:1,indicators:1,rates:1,regulation:1,competitors:1,events:1,insurers:1};
+  var FILES={news:1,indicators:1,rates:1,regulation:1,competitors:1,events:1,insurers:1,competitor_news:1};
   var store={},calcs={},subs=[],ready=false;
   Object.keys(FILES).forEach(function(id){store[id]={status:'loading',data:[]};});
   function calcData(id){
@@ -148,6 +148,10 @@ window.dash=(function(){
 .fx-w.w-low{color:var(--color-ok)}.fx-w.w-low::before{background:var(--color-ok)}
 .fx-w.w-tpa{color:var(--color-fg-muted);font-weight:500}
 .fx-sub{display:block;font-weight:400;color:var(--color-fg-muted);margin-top:.15rem}
+.fx-callout{background:var(--color-panel);border:1px solid var(--color-border-line);border-left:3px solid var(--fx-accent,var(--color-fg));border-radius:var(--cds-radius);padding:var(--cds-pad-md) var(--cds-pad-lg);margin-bottom:var(--cds-gap-lg)}
+.fx-callout p{margin:.35rem 0 0;font-size:var(--cds-font-size-body);line-height:1.55;color:var(--color-fg-muted)}
+.fx-callout b{color:var(--color-fg)}
+.fx-co{color:var(--color-fg);font-weight:600}
 .fx-foot{margin-top:var(--cds-gap-xl);padding-top:var(--cds-pad-md);border-top:1px solid var(--color-border-line);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
 [data-dash-source-state=empty]{color:transparent}
 [data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
@@ -204,6 +208,7 @@ window.dash=(function(){
     <button class="fx-tab" role="tab" data-tab="insurers" aria-selected="false">Insurer watch</button>
     <button class="fx-tab" role="tab" data-tab="rates" aria-selected="false">Rates &amp; market</button>
     <button class="fx-tab" role="tab" data-tab="regulation" aria-selected="false">Regulation watch</button>
+    <button class="fx-tab" role="tab" data-tab="compnews" aria-selected="false">Competitor news</button>
     <button class="fx-tab" role="tab" data-tab="competitors" aria-selected="false">Competitors</button>
   </nav>
 
@@ -325,10 +330,24 @@ window.dash=(function(){
     </div>
   </section>
 
+  <section class="fx-page" id="compnews" hidden>
+    <div class="fx-callout" id="closest">
+      <div class="fx-tl">Closest competitor</div>
+      <p><b>Klaim</b> already runs Factor's model in the UAE: it buys insurance claims from clinics and hospitals, pays within 24 hours and collects from the insurer. It is backed by Emirates Development Bank, Saudi investors and a private credit line, and is expanding to Saudi Arabia and the US. The other names below fund general SME invoices rather than healthcare claims.</p>
+    </div>
+    <div class="fx-filters" id="cn-filters">
+      <button class="fx-chip" data-ov="All" aria-pressed="true">All</button>
+      <button class="fx-chip" data-ov="Direct" aria-pressed="false">Direct: healthcare claims</button>
+      <button class="fx-chip" data-ov="Adjacent" aria-pressed="false">Adjacent: SME invoices</button>
+      <select class="fx-select" id="fx-cn" aria-label="Competitor"><option value="All">All competitors</option></select>
+    </div>
+    <div class="fx-feed" id="fx-cfeed" data-source="competitor_news"></div>
+  </section>
+
   <section class="fx-page" id="competitors" hidden>
     <div class="fx-card-box">
       <h2 class="fx-h2">Who else funds receivables in the region</h2>
-      <p class="fx-note">Fintechs, platforms and banks offering invoice discounting or adjacent working-capital products. None of those listed states a healthcare-claims focus.</p>
+      <p class="fx-note">Fintechs, platforms and banks offering invoice discounting or adjacent working-capital products. Klaim is the only one focused on healthcare insurance claims, the same model as Factor.</p>
       <div class="fx-filters"><input class="fx-input" id="fx-cq" type="search" placeholder="Search competitors" aria-label="Search competitors"></div>
       <div class="fx-tbl-wrap">
         <table class="fx-tbl" id="fx-comp" data-source="competitors" data-row-key="name">
@@ -389,6 +408,7 @@ window.dash=(function(){
   const DEC = { base_rate: 2, dubai_claims: 1, ins_revenue: 1 };
 
   const f = { region: 'All', category: 'All', high: false, q: '', watch: 'All' };
+  const cf = { name: 'All', overlap: 'All' };
   let current = 'briefing';
   const toPoints = (v) => {
     if (Array.isArray(v)) return v.map(String).filter((s) => s.trim());
@@ -467,48 +487,73 @@ window.dash=(function(){
     if (!rows.length) {
       const e = document.createElement('div'); e.className = 'fx-empty'; e.textContent = 'No stories match these filters.'; box.append(e); return;
     }
-    for (const n of rows) {
-      const w = 'id=' + encodeURIComponent(n.id);
-      const mk = (tag, cls, field, text) => {
-        const e = document.createElement(tag); if (cls) e.className = cls;
-        e.setAttribute('data-source', 'news'); e.setAttribute('data-field', field); e.setAttribute('data-where', w);
-        e.textContent = text; return e;
-      };
-      const card = document.createElement('article'); card.className = 'fx-item'; card.dataset.rel = n.relevance; card.id = 'story-' + n.id;
-      const meta = document.createElement('div'); meta.className = 'fx-meta';
-      meta.append(mk('span', '', 'date', fmtDate(n.date)), mk('span', 'fx-tag', 'region', n.region), mk('span', 'fx-tag', 'category', n.category), mk('span', 'fx-rel', 'relevance', n.relevance));
-      const isOpen = openIds.has(n.id);
-      const toggle = () => { if (openIds.has(n.id)) openIds.delete(n.id); else openIds.add(n.id); renderFeed(); const c = document.getElementById('story-' + n.id); if (c && openIds.has(n.id)) c.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); };
-      const hlb = document.createElement('button'); hlb.type = 'button'; hlb.className = 'fx-hlb'; hlb.setAttribute('aria-expanded', String(isOpen));
-      hlb.append(mk('span', 'fx-hl', 'headline', n.headline));
-      hlb.addEventListener('click', toggle);
-      const sum = mk('p', 'fx-sum', 'summary', n.summary);
-      const why = document.createElement('p'); why.className = 'fx-why';
-      const lbl = document.createElement('b'); lbl.textContent = 'Why it matters';
-      why.append(lbl, mk('span', '', 'why', n.why));
-      card.append(meta, hlb, sum);
-      if (isOpen) {
-        const brief = document.createElement('div'); brief.className = 'fx-brief';
-        const h = document.createElement('div'); h.className = 'fx-brief-h'; h.textContent = 'What the article says';
-        const ul = document.createElement('ul');
-        toPoints(n.points).forEach((p) => { const li = document.createElement('li'); li.textContent = p; ul.append(li); });
-        brief.append(h);
-        if (ul.children.length) brief.append(ul); else { const e = document.createElement('p'); e.className = 'fx-note'; e.textContent = 'No detailed summary yet for this story.'; brief.append(e); }
-        card.append(brief);
-      }
-      card.append(why);
-      const src = document.createElement('div'); src.className = 'fx-src';
-      const sl = document.createElement('span'); sl.append('Source: ', mk('span', '', 'source', n.source)); src.append(sl);
-      const more = document.createElement('button'); more.type = 'button'; more.className = 'fx-more'; more.textContent = isOpen ? 'Hide summary' : 'Read summary';
-      more.addEventListener('click', toggle);
-      src.append(more);
-      if (isOpen && safe(n.url)) {
-        const a = document.createElement('a'); a.className = 'fx-orig'; a.href = n.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'Original article ↗';
-        src.append(a);
-      }
-      card.append(src);
-      box.append(card);
+    rows.forEach((n) => box.append(buildCard(n, 'news', [{ f: 'region' }, { f: 'category' }], 'story-', renderFeed)));
+  }
+
+  function buildCard(n, ds, metaFields, prefix, rerender) {
+    const w = 'id=' + encodeURIComponent(n.id);
+    const mk = (tag, cls, field, text) => {
+      const e = document.createElement(tag); if (cls) e.className = cls;
+      e.setAttribute('data-source', ds); e.setAttribute('data-field', field); e.setAttribute('data-where', w);
+      e.textContent = text; return e;
+    };
+    const key = ds + ':' + n.id;
+    const card = document.createElement('article'); card.className = 'fx-item'; card.dataset.rel = n.relevance; card.id = prefix + n.id;
+    const meta = document.createElement('div'); meta.className = 'fx-meta';
+    meta.append(mk('span', '', 'date', fmtDate(n.date)));
+    metaFields.forEach((m) => meta.append(mk('span', m.cls || 'fx-tag', m.f, n[m.f])));
+    meta.append(mk('span', 'fx-rel', 'relevance', n.relevance));
+    const isOpen = openIds.has(key);
+    const toggle = () => { if (openIds.has(key)) openIds.delete(key); else openIds.add(key); rerender(); const c = document.getElementById(prefix + n.id); if (c && openIds.has(key)) c.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); };
+    const hlb = document.createElement('button'); hlb.type = 'button'; hlb.className = 'fx-hlb'; hlb.setAttribute('aria-expanded', String(isOpen));
+    hlb.append(mk('span', 'fx-hl', 'headline', n.headline));
+    hlb.addEventListener('click', toggle);
+    const sum = mk('p', 'fx-sum', 'summary', n.summary);
+    const why = document.createElement('p'); why.className = 'fx-why';
+    const lbl = document.createElement('b'); lbl.textContent = 'Why it matters';
+    why.append(lbl, mk('span', '', 'why', n.why));
+    card.append(meta, hlb, sum);
+    if (isOpen) {
+      const brief = document.createElement('div'); brief.className = 'fx-brief';
+      const h = document.createElement('div'); h.className = 'fx-brief-h'; h.textContent = 'What the article says';
+      const ul = document.createElement('ul');
+      toPoints(n.points).forEach((p) => { const li = document.createElement('li'); li.textContent = p; ul.append(li); });
+      brief.append(h);
+      if (ul.children.length) brief.append(ul); else { const e = document.createElement('p'); e.className = 'fx-note'; e.textContent = 'No detailed summary yet for this story.'; brief.append(e); }
+      card.append(brief);
     }
+    card.append(why);
+    const src = document.createElement('div'); src.className = 'fx-src';
+    const sl = document.createElement('span'); sl.append('Source: ', mk('span', '', 'source', n.source)); src.append(sl);
+    const more = document.createElement('button'); more.type = 'button'; more.className = 'fx-more'; more.textContent = isOpen ? 'Hide summary' : 'Read summary';
+    more.addEventListener('click', toggle);
+    src.append(more);
+    if (isOpen && safe(n.url)) {
+      const a = document.createElement('a'); a.className = 'fx-orig'; a.href = n.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'Original article ↗';
+      src.append(a);
+    }
+    card.append(src);
+    return card;
+  }
+
+  function renderComp() {
+    const box = $('#fx-cfeed');
+    const d = dash.data('competitor_news');
+    box.replaceChildren();
+    if (d.status !== 'ok') {
+      if (bad(d.status)) { box.classList.remove('dash-skeleton'); box.append(failLine()); } else box.classList.add('dash-skeleton');
+      return;
+    }
+    box.classList.remove('dash-skeleton');
+    const sel = $('#fx-cn');
+    const names = [...new Set(d.data.map((r) => r.competitor))].sort();
+    if (sel.options.length !== names.length + 1) sel.replaceChildren(new Option('All competitors', 'All'), ...names.map((c) => new Option(c, c)));
+    sel.value = cf.name;
+    document.querySelectorAll('#cn-filters .fx-chip').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.ov === cf.overlap)));
+    const rows = d.data.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)))
+      .filter((r) => (cf.name === 'All' || r.competitor === cf.name) && (cf.overlap === 'All' || String(r.overlap).startsWith(cf.overlap)));
+    if (!rows.length) { const e = document.createElement('div'); e.className = 'fx-empty'; e.textContent = 'No news matches these filters.'; box.append(e); return; }
+    rows.forEach((r) => box.append(buildCard(r, 'competitor_news', [{ f: 'competitor', cls: 'fx-tag fx-co' }, { f: 'overlap' }], 'cnews-', renderComp)));
   }
 
   function renderBars() {
@@ -630,6 +675,8 @@ window.dash=(function(){
       renderTable('#fx-reg', 'regulation', [
         { f: 'instrument', link: true }, { f: 'issuer' }, { f: 'status' }, { f: 'effective', fmt: (v) => (v ? fmtDate(v) : '—'), cls: 'num' }, { f: 'impact' },
       ]);
+    } else if (current === 'compnews') {
+      renderComp();
     } else if (current === 'competitors') {
       const q = ($('#fx-cq').value || '').trim().toLowerCase();
       renderTable('#fx-comp', 'competitors', [
@@ -654,6 +701,8 @@ window.dash=(function(){
   $('#fx-high').addEventListener('change', (e) => { f.high = e.target.checked; draw(); });
   $('#fx-q').addEventListener('input', (e) => { f.q = e.target.value; renderFeed(); });
   $('#fx-cq').addEventListener('input', () => draw());
+  $('#fx-cn').addEventListener('change', (e) => { cf.name = e.target.value; draw(); });
+  document.querySelectorAll('#cn-filters .fx-chip').forEach((c) => c.addEventListener('click', () => { cf.overlap = c.dataset.ov; draw(); }));
   document.querySelectorAll('#ins-filters .fx-chip').forEach((c) => c.addEventListener('click', () => { f.watch = c.dataset.watch; draw(); }));
 
   const hash = location.hash.slice(1);
