@@ -1,27 +1,39 @@
 [
  {
   "id": "n01",
-  "date": "2026-10-12",
+  "date": "2026-10-08",
   "region": "Global",
   "category": "Risk & credit",
   "relevance": "Medium",
   "headline": "Small-business bankruptcy filings under Subchapter V up 46% in 2026",
-  "summary": "Epiq AACER data, flagged by the International Factoring Association, shows a sharp rise in small-business restructuring filings this year.",
+  "summary": "Epiq AACER data shows small-business restructurings under Subchapter V rose 46% in the first nine months of 2026.",
   "why": "Rising SME distress matters for seller risk: if a clinic fails, disputes and recourse get harder even when the insurer pays.",
-  "source": "IFA Commercial Factor",
-  "url": "https://magazine.factoring.org/"
+  "source": "Auto Remarketing (Epiq AACER data)",
+  "url": "https://www.autoremarketing.com/?p=131529",
+  "points": [
+   "Epiq AACER counted 2,442 Subchapter V elections in the first nine months of 2026, up from 1,672 a year earlier.",
+   "Total US bankruptcy filings rose 11% to about 470,000, and commercial Chapter 11 cases also rose 11%.",
+   "Epiq links the rise to higher borrowing costs, growing delinquencies and a softer job market, and expects filings to keep climbing into 2027.",
+   "The American Bankruptcy Institute notes recent legislation permanently raises the size limit for small businesses using Subchapter V."
+  ]
  },
  {
   "id": "n02",
-  "date": "2026-10-12",
+  "date": "2026-10-07",
   "region": "Global",
   "category": "Deals & funding",
   "relevance": "Low",
   "headline": "OTR Solutions buys CCT Factoring's transportation portfolio",
   "summary": "A US specialist factor is acquiring a competitor's book to scale its factoring and technology strategy.",
   "why": "Consolidation of niche factoring books continues, a possible exit route for a specialised portfolio later.",
-  "source": "IFA Commercial Factor",
-  "url": "https://magazine.factoring.org/"
+  "source": "Dealroom",
+  "url": "https://dealroom.co/news/160691-otr-solutions-buys-cct-factorings-transportation-book-its-second-deal-in/",
+  "points": [
+   "OTR Solutions bought CCT Factoring's trucking portfolio and moved those clients onto its own factoring and banking platform; the price was not disclosed.",
+   "The deal closed less than three months after the letter of intent; CCT keeps its non-transportation clients.",
+   "It is OTR's second portfolio purchase in under a year, after buying TruckSmarter's factoring book in November 2025.",
+   "OTR says it plans more acquisitions, bundling fast invoice funding with fuel cards and business banking."
+  ]
  },
  {
   "id": "n03",
@@ -33,7 +45,12 @@
   "summary": "NACM's September index stayed expansionary, while dollar collections fell sharply and receivables quality deteriorated.",
   "why": "Slower payers mean longer DSO: more demand for discounting, and a reason to watch tenor assumptions closely.",
   "source": "Trade Credit & Liquidity Management",
-  "url": "https://tradecredit.substack.com/p/trade-credit-and-liquidity-management-2-19"
+  "url": "https://tradecredit.substack.com/p/trade-credit-and-liquidity-management-2-19",
+  "points": [
+   "The National Association of Credit Management's September index edged up to 54.7, still in expansion territory.",
+   "Beneath the headline, dollar collections fell sharply and receivables quality worsened.",
+   "The newsletter reads it as a cash-flow warning: businesses are still trading but getting paid more slowly."
+  ]
  },
  {
   "id": "n04",
@@ -45,7 +62,13 @@
   "summary": "Factoring volume rose in H1 2026 for large and small factors alike; industry sentiment rose to 66 and average DSO fell to 44 days.",
   "why": "Demand for receivables finance is rising in a higher-rate world, a supportive backdrop when pitching Factor to lenders.",
   "source": "Business Wire via FinancialContent",
-  "url": "https://www.financialcontent.com/article/bizwire-2026-10-1-factoring-volume-rises-as-industry-outlook-strengthens-sfnet-mid-year-survey-finds"
+  "url": "https://www.financialcontent.com/article/bizwire-2026-10-1-factoring-volume-rises-as-industry-outlook-strengthens-sfnet-mid-year-survey-finds",
+  "points": [
+   "Secured Finance Network's mid-year survey found factoring volume rose among both large and small factors between H1 2025 and H1 2026.",
+   "Large-volume factors grew volume 26.3% and small ones 6.1%; funds in use rose too.",
+   "The industry sentiment score climbed five points to 66, and average days sales outstanding fell to 44.",
+   "SFNet ties the demand to higher costs and elevated interest rates squeezing working capital."
+  ]
  },
  {
   "id": "n05",
@@ -57,7 +80,12 @@
   "summary": "A multi-country facility secured on trade receivables from the US, Germany and Singapore, funded by a global investment firm.",
   "why": "Shows how private credit funds buy receivables pools: a template for Factor's own funding line.",
   "source": "GlobeNewswire",
-  "url": "https://www.globenewswire.com/news-release/2026/10/01/3372962/0/en/finacity-facilitates-usd-50-million-receivables-financing-facility-for-advancion-corporation.html"
+  "url": "https://www.globenewswire.com/news-release/2026/10/01/3372962/0/en/finacity-facilitates-usd-50-million-receivables-financing-facility-for-advancion-corporation.html",
+  "points": [
+   "Finacity, part of White Oak Global Advisors, arranged a $50m facility for chemicals maker Advancion, owned by Ardian and Golden Gate Capital.",
+   "The facility is secured on trade receivables from the US, Germany and Singapore and funded by a global investment firm's credit funds.",
+   "Finacity says it administers more than $200bn of receivables a year."
+  ]
  },
  {
   "id": "n06",
@@ -69,19 +97,30 @@
   "summary": "GTR reports the bank is shutting down the digital trade platform.",
   "why": "Even large banks retreat from platforms they built; a reminder to weigh build versus partner for Factor's stack.",
   "source": "GTR",
-  "url": "https://www.gtreview.com/news/"
+  "url": "https://www.gtreview.com/news/",
+  "points": [
+   "Trade finance publication GTR reports, as an exclusive, that Santander is closing Navigator Global.",
+   "Navigator Global launched in November 2025 as a digital platform helping small and mid-sized businesses expand abroad, with market guidance and a network of service providers.",
+   "The full story sits behind GTR's paywall, so the reasons for the closure are not covered here."
+  ]
  },
  {
   "id": "n07",
-  "date": "2026-10-02",
+  "date": "2026-09-28",
   "region": "Global",
   "category": "Technology",
   "relevance": "Medium",
   "headline": "HSBC moves to its own AI for checking trade documents",
-  "summary": "GTR reports HSBC has taken document checking for trade finance onto proprietary AI.",
+  "summary": "HSBC launched Smart Checking, its own AI system for checking trade finance documents, now live in the UK, Hong Kong and the UAE.",
   "why": "Validates Factor's AI-first screening: incumbents treat automated document checks as core.",
-  "source": "GTR",
-  "url": "https://www.gtreview.com/news/"
+  "source": "Financial IT",
+  "url": "https://financialit.net/news/trading-systems/hsbc-advances-digital-trade-new-document-checking-solution",
+  "points": [
+   "HSBC has rolled out Smart Checking, an in-house AI system that reads, classifies and checks trade finance documents.",
+   "An AI reasoning engine runs the documentary credit checks, and a confidence threshold decides which items go to human specialists.",
+   "HSBC handles over a million document presentations a year; the tool is live in the UK, Hong Kong and the UAE, with a wider rollout planned.",
+   "No accuracy or time-saving figures were published; the expected benefit is faster payment for clients."
+  ]
  },
  {
   "id": "n08",
@@ -93,7 +132,13 @@
   "summary": "Banks report record volumes but falling profitability; around a third see lower margins in supply chain and receivables finance.",
   "why": "Plain-vanilla receivables are being commoditised; a specialist niche such as insurer-backed claims can defend pricing.",
   "source": "Trade Treasury Payments",
-  "url": "https://tradetreasurypayments.com/articles/trade-finance-in-2026-an-industry-under-pressure-finds-new-direction-says-the-icc-global-trade-intelligence-report"
+  "url": "https://tradetreasurypayments.com/articles/trade-finance-in-2026-an-industry-under-pressure-finds-new-direction-says-the-icc-global-trade-intelligence-report",
+  "points": [
+   "The ICC's survey of over 100 bank trade finance practitioners finds record trade volumes but shrinking profitability.",
+   "Letters of credit are under the most pressure, with about 40% of respondents seeing lower margins.",
+   "Around 35% report lower margins in supply chain and receivables finance as competition intensifies.",
+   "Geopolitics and tariff swings are increasing demand for financing and risk-management products."
+  ]
  },
  {
   "id": "n09",
@@ -105,7 +150,12 @@
   "summary": "IFC will take up to $500m of the risk on payables, receivables and pre-shipment finance for APAC suppliers.",
   "why": "Development banks underwrite receivables risk; a model for a future IFC or Emirates Development Bank partnership.",
   "source": "Trade Finance Global",
-  "url": "https://www.tradefinanceglobal.com/posts/sibos-2026-ifc-and-mizuho-launch-1bn-risk-sharing-facility-to-boost-apac-access-to-supply-chain-finance/"
+  "url": "https://www.tradefinanceglobal.com/posts/sibos-2026-ifc-and-mizuho-launch-1bn-risk-sharing-facility-to-boost-apac-access-to-supply-chain-finance/",
+  "points": [
+   "Mizuho and the IFC signed a $1bn risk-sharing facility at Sibos 2026 to widen supply chain finance in Asia-Pacific.",
+   "The IFC will carry up to $500m of the risk across payables, receivables and pre-shipment finance.",
+   "The aim is to reach SMEs and distributors, a large share of whose trade finance requests are rejected in the region."
+  ]
  },
  {
   "id": "n10",
@@ -117,7 +167,12 @@
   "summary": "A cloud, API and AI-enabled payables and receivables finance product for banks, with risk distribution built in.",
   "why": "Off-the-shelf platforms lower build cost; a benchmark for what Factor's own system should do.",
   "source": "Finastra",
-  "url": "https://www.finastra.com/press-media/finastra-launches-supply-chain-finance-help-banks-accelerate-working-capital-growth"
+  "url": "https://www.finastra.com/press-media/finastra-launches-supply-chain-finance-help-banks-accelerate-working-capital-growth",
+  "points": [
+   "Finastra launched a supply chain finance product for banks at Sibos 2026, covering payables and receivables finance in its first phase.",
+   "It handles onboarding, servicing, risk management and selling on exposures to other funders, and links to ERP systems through APIs.",
+   "Later releases are planned to add purchase-order, pre- and post-shipment, inventory and distributor finance."
+  ]
  },
  {
   "id": "n11",
@@ -129,7 +184,13 @@
   "summary": "erad has financed over SAR 500m for SMEs and received more than SAR 4bn in applications; the investor cites a $250bn GCC SME financing gap.",
   "why": "The closest regional comparable for valuation and positioning, and evidence of deep unmet working-capital demand.",
   "source": "FinTech Global",
-  "url": "https://fintech.global/2026/09/28/erad-secures-22m-series-a-to-power-gcc-sme-financing/"
+  "url": "https://fintech.global/2026/09/28/erad-secures-22m-series-a-to-power-gcc-sme-financing/",
+  "points": [
+   "Riyadh-based erad raised a $22m Series A led by MEVP to expand Shariah-compliant SME financing across the GCC.",
+   "Its Saudi business grew eightfold in a year; it has funded over SAR 500m and received more than SAR 4bn of applications.",
+   "New money goes into products for capital-heavy sectors such as industry, logistics and manufacturing.",
+   "MEVP frames the opportunity as the GCC's roughly $250bn SME financing gap."
+  ]
  },
  {
   "id": "n12",
@@ -141,7 +202,13 @@
   "summary": "Following the Fed's first hike since 2023, CBUAE lifted its base rate from 3.65%, effective 17 September.",
   "why": "Factor's cost of funds tracks EIBOR, so discount rates to clinics need repricing; Fed projections point to possibly one more hike this year.",
   "source": "Gulf News",
-  "url": "https://gulfnews.com/business/banking/uae-central-bank-raises-base-rate-to-39-after-us-fed-rate-hike-1.500677315"
+  "url": "https://gulfnews.com/business/banking/uae-central-bank-raises-base-rate-to-39-after-us-fed-rate-hike-1.500677315",
+  "points": [
+   "The Central Bank of the UAE raised its base rate from 3.65% to 3.90%, effective 17 September.",
+   "It followed the US Federal Reserve's first rate hike since 2023, as the dirham's dollar peg requires.",
+   "The rate on short-term borrowing from the central bank stays 0.5 points above the base rate.",
+   "Fed projections suggest at least one more increase is possible before the end of 2026."
+  ]
  },
  {
   "id": "n13",
@@ -153,7 +220,12 @@
   "summary": "Fintech finance for industrial projects, including invoice financing, hit SR541m in the first half, per Saudi Arabia's industry ministry.",
   "why": "Government-backed demand for fintech receivables finance in KSA; a likely second market after the UAE.",
   "source": "Arab News",
-  "url": "https://www.arabnews.com/node/2656003/business-economy"
+  "url": "https://www.arabnews.com/node/2656003/business-economy",
+  "points": [
+   "Saudi fintechs lent SR541m to industrial projects in the first half of 2026, up 130% from SR234m a year earlier.",
+   "Products include working-capital loans, invoice financing and expansion funding, according to the Ministry of Industry.",
+   "The half-year total is already about 70% of the whole of 2025, part of a Vision 2030 push for alternative funding."
+  ]
  },
  {
   "id": "n14",
@@ -165,7 +237,12 @@
   "summary": "The Dubai firm offers invoice discounting of up to 90% within a day, alongside revenue-based and purchase-order finance.",
   "why": "Another UAE player competing on speed; Factor should compete on advance rate and pricing for insurer-backed claims.",
   "source": "On: Yorkshire Magazine",
-  "url": "https://www.on-magazine.co.uk/business/finance/uae-fintech-boom-payments-sme-finance-and-crypto-firms-drive-growth/"
+  "url": "https://www.on-magazine.co.uk/business/finance/uae-fintech-boom-payments-sme-finance-and-crypto-firms-drive-growth/",
+  "points": [
+   "Dubai-based Fincobox is widening its non-dilutive funding products for SMEs.",
+   "It advertises invoice discounting of up to 90% of invoice value within a day, plus revenue-based, purchase-order and short-term finance.",
+   "It pitches itself at SMEs that banks turn away for lack of collateral or slow approvals."
+  ]
  },
  {
   "id": "n15",
@@ -177,7 +254,13 @@
   "summary": "The Paris platform funds invoices through a bankruptcy-remote securitisation fund led by Nomura.",
   "why": "A clear funding blueprint: a ring-fenced vehicle that buys receivables, which institutional lenders prefer.",
   "source": "EU-Startups",
-  "url": "https://www.eu-startups.com/2026/07/paris-based-aria-raises-e7-million-and-launches-e240-million-debt-facility-to-tackle-europes-late-payment-crisis/"
+  "url": "https://www.eu-startups.com/2026/07/paris-based-aria-raises-e7-million-and-launches-e240-million-debt-facility-to-tackle-europes-late-payment-crisis/",
+  "points": [
+   "Paris-based Aria raised a €7m Series A extension and set up a €240m debt facility for invoice financing.",
+   "The main funding vehicle is a bankruptcy-remote securitisation fund led by Nomura.",
+   "Aria buys invoices rather than lending against them, embedding the service in ERP systems, marketplaces and B2B software.",
+   "It financed 1.7m invoice advances in 2025 and over 1.1m more by mid-2026."
+  ]
  },
  {
   "id": "n16",
@@ -189,7 +272,13 @@
   "summary": "Under Decree-Law 16 of 2021, outright sale, discounting and security assignment are all transfers; registration protects the factor's priority.",
   "why": "Confirms Factor's assignment model; each assignment must be registered as the law requires to rank ahead of other creditors.",
   "source": "Kayrouz & Associates",
-  "url": "https://www.kayrouzandassociates.com/insights/how-the-uae-factoring-law-works-for-exporters-in-2026"
+  "url": "https://www.kayrouzandassociates.com/insights/how-the-uae-factoring-law-works-for-exporters-in-2026",
+  "points": [
+   "The UAE Factoring Law, Federal Decree-Law 16 of 2021, covers open-account receivables but not payments under letters of credit or endorsable instruments.",
+   "Outright sale, discounting and assignment as security are all treated as transfers under the same rules.",
+   "Registering the assignment protects the factor's priority against the seller's other creditors.",
+   "Whole-turnover factoring works: new invoices fall under a signed facility without fresh paperwork each time."
+  ]
  },
  {
   "id": "n17",
@@ -201,7 +290,13 @@
   "summary": "Asset-backed lending to fintechs rose over eightfold; Tamara and Lendo were among the largest borrowers.",
   "why": "Institutional credit is flowing to receivables-backed lenders in the region; these lenders are targets for Factor's warehouse line.",
   "source": "Arab News",
-  "url": "https://www.arabnews.com/node/2648888/business-economy"
+  "url": "https://www.arabnews.com/node/2648888/business-economy",
+  "points": [
+   "Private debt to GCC startups reached about $4.1bn last year, more than eight times the 2024 level.",
+   "Fintech took roughly 95.5% of it; Tamara's $2.4bn and Lendo's $740m were among the largest deals.",
+   "Saudi Arabia accounted for about $3.9bn, helped by sovereign programmes and regulatory reform.",
+   "Lenders are increasingly funding loan books and receivables at earlier stages of a company's life."
+  ]
  },
  {
   "id": "n18",
@@ -213,7 +308,13 @@
   "summary": "Industry analysis puts Dubai claim volume up from 43.6m in 2024, with reconciliation and partial payments a growing burden.",
   "why": "Roughly 14% growth in Factor's core asset class; reconciliation pain is the opening for a funding partner.",
   "source": "Escrow Healthcare (industry blog)",
-  "url": "https://escrow-healthcare.com/growing-reconciliation-pressure-in-uae-healthcare-2026/"
+  "url": "https://escrow-healthcare.com/growing-reconciliation-pressure-in-uae-healthcare-2026/",
+  "points": [
+   "An industry analysis puts Dubai's health insurance claims at about 49.6m in 2025, up from 43.6m in 2024.",
+   "More claims mean more mismatches between what providers bill and what insurers pay, including partial payments.",
+   "Some disputed claims run past 120 days before they are settled.",
+   "Source is a medical billing firm's blog, so treat the figures as estimates."
+  ]
  },
  {
   "id": "n19",
@@ -225,7 +326,13 @@
   "summary": "Lenders bought receivables on spreadsheet data without verifying invoices themselves, allowing falsified data to pass.",
   "why": "The core lesson for Factor: verify each claim at source, control collections, and check for double financing before funding.",
   "source": "GTR",
-  "url": "https://www.gtreview.com/news/americas/weaknesses-in-us-factoring-programmes-critical-to-first-brands-alleged-fraud/"
+  "url": "https://www.gtreview.com/news/americas/weaknesses-in-us-factoring-programmes-critical-to-first-brands-alleged-fraud/",
+  "points": [
+   "A court-appointed examiner found First Brands exploited weak North American factoring practices to raise billions from lenders.",
+   "The company allegedly sent falsified invoice data in spreadsheets to funders including Raistone and Jefferies' Leucadia.",
+   "Some funders relied on platform data and did not independently review invoices before buying them.",
+   "The examiner cites missing real-time oversight, independent verification and system controls."
+  ]
  },
  {
   "id": "n20",
@@ -237,7 +344,13 @@
   "summary": "Insurers must pay adjudicated claims within 45 days; delays carry a fee of 0.03% of the claim per day.",
   "why": "Sets Factor's expected tenor near 45 days; ask counsel whether the late fee passes to Factor as assignee.",
   "source": "UAE Expert Hub",
-  "url": "https://www.uaeexperthub.com/health-insurance-for-expats-in-the-uae-mandatory-rules-costs-and-penalties/"
+  "url": "https://www.uaeexperthub.com/health-insurance-for-expats-in-the-uae-mandatory-rules-costs-and-penalties/",
+  "points": [
+   "Dubai rules require insurers to pay adjudicated claims within 45 days of submission and resubmitted claims within 30 days.",
+   "If an insurer pays late, the provider can charge 0.03% of the net claim per day.",
+   "Pre-authorisation answers are due within 6 hours for outpatient care and 24 hours for inpatient care.",
+   "Providers face the same daily fee if they submit or resubmit claims late."
+  ]
  },
  {
   "id": "n21",
@@ -249,7 +362,12 @@
   "summary": "Market Financial Solutions entered administration with a reported £930m shortfall tied to collateral pledged to several lenders.",
   "why": "Double-pledging keeps recurring; Factor needs a register check and assignment notice to the insurer on every claim.",
   "source": "Wikipedia (citing Bloomberg)",
-  "url": "https://en.wikipedia.org/wiki/Market_Financial_Solutions"
+  "url": "https://en.wikipedia.org/wiki/Market_Financial_Solutions",
+  "points": [
+   "UK property lender Market Financial Solutions went into administration in February 2026.",
+   "Creditors allege the same collateral was pledged to more than one lender, leaving a reported shortfall of about £930m.",
+   "The case adds to a run of 2026 failures involving double-pledged assets."
+  ]
  },
  {
   "id": "n22",
@@ -261,7 +379,13 @@
   "summary": "Billing specialists see stricter insurer reviews, with denials and payment delays of 30 to 90 days hitting clinic cash flow.",
   "why": "Factor buys approved claims only, so denial risk is avoided, while slower payment raises clinics' need for funding.",
   "source": "Escrow Healthcare (industry blog)",
-  "url": "https://escrow-healthcare.com/why-insurance-claim-denials-are-increasing-in-2026-and-how-uae-clinics-can-prevent-them/"
+  "url": "https://escrow-healthcare.com/why-insurance-claim-denials-are-increasing-in-2026-and-how-uae-clinics-can-prevent-them/",
+  "points": [
+   "Billing specialists report UAE insurers are rejecting more claims in 2026 and reviewing them more strictly.",
+   "Denials and resubmissions are delaying payments by 30 to 90 days.",
+   "Clinics can lose 5 to 20% of potential revenue to denials they never resolve.",
+   "Source is a medical billing firm's blog, so treat the figures as indicative."
+  ]
  },
  {
   "id": "n23",
@@ -273,7 +397,12 @@
   "summary": "One of the largest oil and gas receivables deals, run on the FIS supply chain finance platform.",
   "why": "Shows the scale end of receivables funding: securitisation is the long-run path once Factor's book is seasoned.",
   "source": "FIS",
-  "url": "https://www.fisglobal.com/about-us/media-room/press-release/2026/fis-supply-chain-finance-platform-powers-landmark"
+  "url": "https://www.fisglobal.com/about-us/media-room/press-release/2026/fis-supply-chain-finance-platform-powers-landmark",
+  "points": [
+   "Glencore launched its first trade receivables securitisation for its oil and gas business, sized at $2.55bn.",
+   "It runs on FIS's supply chain finance platform, formerly Demica, which provides real-time monitoring and reporting.",
+   "It is described as one of the largest oil and gas trade receivables deals ever done."
+  ]
  },
  {
   "id": "n24",
@@ -285,7 +414,13 @@
   "summary": "BADRI's review of 27 listed insurers shows revenue of AED 28bn and a combined ratio of 86%, with a few firms near or below the solvency minimum.",
   "why": "Most payers are healthy, so insurer risk is concentrated in a handful of names; the Insurer watch tab tracks them.",
   "source": "BADRI Consultancy",
-  "url": "https://badriconsultancy.com/wp-content/uploads/2026/09/BADRI-UAE-Insurance-Industry-Performance-Analysis-H1-2026.pdf"
+  "url": "https://badriconsultancy.com/wp-content/uploads/2026/09/BADRI-UAE-Insurance-Industry-Performance-Analysis-H1-2026.pdf",
+  "points": [
+   "BADRI's review of 27 listed UAE insurers shows first-half revenue up 14% to AED 28bn despite March flood losses.",
+   "Profit before tax rose 13% to AED 2.4bn, and the weighted combined ratio was 86%.",
+   "A few insurers, including Al Ain Ahlia, Al Sagr and Fidelity United, made losses.",
+   "Most insurers sit comfortably above the 100% solvency minimum, but a small number are at or below it."
+  ]
  },
  {
   "id": "n25",
@@ -297,7 +432,12 @@
   "summary": "The rating agency notes ADNIC's book is weighted to UAE medical business and that it is the third-largest listed insurer by revenue.",
   "why": "One of the strongest medical payers; claims on ADNIC can support higher advance rates.",
   "source": "AM Best via FinancialContent",
-  "url": "https://www.financialcontent.com/article/bizwire-2026-9-30-am-best-affirms-credit-ratings-of-abu-dhabi-national-insurance-company-pjsc"
+  "url": "https://www.financialcontent.com/article/bizwire-2026-9-30-am-best-affirms-credit-ratings-of-abu-dhabi-national-insurance-company-pjsc",
+  "points": [
+   "AM Best affirmed ADNIC's financial strength at A (Excellent) with a stable outlook.",
+   "The agency says ADNIC's business is weighted towards UAE medical insurance.",
+   "ADNIC is the third-largest listed UAE insurer by revenue and owns 51% of Saudi insurer Mutakamela."
+  ]
  },
  {
   "id": "n26",
@@ -309,6 +449,12 @@
   "summary": "PureHealth's insurance arm reported net profit of AED 458m and a solvency ratio of 189% for the first half.",
   "why": "The largest health payer is growing and well capitalised; the main risk for Factor is concentration, not credit.",
   "source": "PureHealth",
-  "url": "https://purehealth.ae/wp-content/uploads/2026/07/PureHealth-Q2-2026-MDA-English-1.pdf"
+  "url": "https://purehealth.ae/wp-content/uploads/2026/07/PureHealth-Q2-2026-MDA-English-1.pdf",
+  "points": [
+   "PureHealth's insurance arm, led by Daman, grew first-half revenue 9.9% to AED 4.13bn.",
+   "Net profit rose 8.6% to AED 458m, and the solvency ratio is 189%.",
+   "Membership reached 3.4m, and Daman handles over 56m claims a year.",
+   "Premium growth came from renewals, pricing and new customers."
+  ]
  }
 ]

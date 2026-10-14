@@ -106,11 +106,21 @@ window.dash=(function(){
 .fx-item[data-rel="High"] .fx-rel::before{background:var(--fx-accent,var(--color-fg))}
 .fx-item[data-rel="Medium"] .fx-rel::before{background:var(--color-fg-muted)}
 .fx-hl{display:block;font-size:var(--cds-font-size-heading);font-weight:600;line-height:1.3;color:var(--color-fg);text-decoration:none;margin-bottom:.35rem}
-.fx-hl:hover{text-decoration:underline}
+.fx-hlb{appearance:none;background:none;border:0;padding:0;margin:0;text-align:left;cursor:pointer;font:inherit;color:inherit;display:block;width:100%}
+.fx-hlb:hover .fx-hl{text-decoration:underline}
+.fx-hlb:focus-visible{outline:2px solid var(--fx-accent,var(--color-fg));outline-offset:3px;border-radius:4px}
+.fx-brief{margin:.2rem 0 .75rem;padding:var(--cds-pad-md) var(--cds-pad-lg);background:var(--color-bg);border:1px solid var(--color-border-line);border-radius:var(--cds-radius)}
+.fx-brief-h{font-size:var(--cds-font-size-caption);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:.4rem;color:var(--color-fg)}
+.fx-brief ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem}
+.fx-brief li{font-size:var(--cds-font-size-body);line-height:1.5}
+.fx-brief li::marker{color:var(--fx-accent,var(--color-fg-muted))}
+.fx-more{appearance:none;background:none;border:0;padding:0;font:inherit;font-size:var(--cds-font-size-caption);color:var(--color-fg);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.fx-orig{color:var(--fx-accent,var(--color-fg));font-weight:600;text-decoration:none;white-space:nowrap}
+.fx-orig:hover{text-decoration:underline}
 .fx-sum{margin:0 0 .5rem;font-size:var(--cds-font-size-body);line-height:1.5}
 .fx-why{margin:0;font-size:var(--cds-font-size-body);line-height:1.5;padding-left:var(--cds-pad-md);border-left:2px solid var(--fx-accent,var(--color-fg));color:var(--color-fg-muted)}
 .fx-why b{color:var(--color-fg);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:var(--cds-font-size-caption);margin-right:.4rem}
-.fx-src{margin-top:.5rem;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.fx-src{margin-top:.5rem;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .9rem}
 .fx-empty{color:var(--color-fg-muted);font-size:var(--cds-font-size-body);padding:var(--cds-pad-lg) 0}
 .fx-bars{display:flex;flex-direction:column;gap:.5rem;min-height:10rem}
 .fx-bar{display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) 2rem;gap:.6rem;align-items:center;font-size:var(--cds-font-size-caption);cursor:pointer;background:none;border:0;padding:0;font-family:inherit;color:var(--color-fg);text-align:left}
@@ -380,6 +390,7 @@ window.dash=(function(){
 
   const f = { region: 'All', category: 'All', high: false, q: '', watch: 'All' };
   let current = 'briefing';
+  const openIds = new Set();
 
   function fillIndicators() {
     const d = dash.data('indicators');
@@ -456,15 +467,36 @@ window.dash=(function(){
       const card = document.createElement('article'); card.className = 'fx-item'; card.dataset.rel = n.relevance; card.id = 'story-' + n.id;
       const meta = document.createElement('div'); meta.className = 'fx-meta';
       meta.append(mk('span', '', 'date', fmtDate(n.date)), mk('span', 'fx-tag', 'region', n.region), mk('span', 'fx-tag', 'category', n.category), mk('span', 'fx-rel', 'relevance', n.relevance));
-      const hl = mk('a', 'fx-hl', 'headline', n.headline);
-      if (safe(n.url)) { hl.href = n.url; hl.target = '_blank'; hl.rel = 'noopener noreferrer'; }
+      const isOpen = openIds.has(n.id);
+      const toggle = () => { if (openIds.has(n.id)) openIds.delete(n.id); else openIds.add(n.id); renderFeed(); const c = document.getElementById('story-' + n.id); if (c && openIds.has(n.id)) c.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); };
+      const hlb = document.createElement('button'); hlb.type = 'button'; hlb.className = 'fx-hlb'; hlb.setAttribute('aria-expanded', String(isOpen));
+      hlb.append(mk('span', 'fx-hl', 'headline', n.headline));
+      hlb.addEventListener('click', toggle);
       const sum = mk('p', 'fx-sum', 'summary', n.summary);
       const why = document.createElement('p'); why.className = 'fx-why';
       const lbl = document.createElement('b'); lbl.textContent = 'Why it matters';
       why.append(lbl, mk('span', '', 'why', n.why));
+      card.append(meta, hlb, sum);
+      if (isOpen) {
+        const brief = document.createElement('div'); brief.className = 'fx-brief';
+        const h = document.createElement('div'); h.className = 'fx-brief-h'; h.textContent = 'What the article says';
+        const ul = document.createElement('ul');
+        (Array.isArray(n.points) ? n.points : []).forEach((p) => { const li = document.createElement('li'); li.textContent = p; ul.append(li); });
+        brief.append(h);
+        if (ul.children.length) brief.append(ul); else { const e = document.createElement('p'); e.className = 'fx-note'; e.textContent = 'No detailed summary yet for this story.'; brief.append(e); }
+        card.append(brief);
+      }
+      card.append(why);
       const src = document.createElement('div'); src.className = 'fx-src';
-      src.append('Source: ', mk('span', '', 'source', n.source));
-      card.append(meta, hl, sum, why, src);
+      const sl = document.createElement('span'); sl.append('Source: ', mk('span', '', 'source', n.source)); src.append(sl);
+      const more = document.createElement('button'); more.type = 'button'; more.className = 'fx-more'; more.textContent = isOpen ? 'Hide summary' : 'Read summary';
+      more.addEventListener('click', toggle);
+      src.append(more);
+      if (isOpen && safe(n.url)) {
+        const a = document.createElement('a'); a.className = 'fx-orig'; a.href = n.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'Original article ↗';
+        src.append(a);
+      }
+      card.append(src);
       box.append(card);
     }
   }
